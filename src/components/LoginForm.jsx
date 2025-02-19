@@ -28,6 +28,7 @@ export function getCookie(name) {
 
 export function Register() 
 {
+    
     const salt = bcrypt.genSaltSync(10);
     const emailRef = useRef();
     const passwordRef = useRef();
@@ -36,13 +37,15 @@ export function Register()
     {
         e.preventDefault();
 
+        window.location.href = "/cando";
+
         const email = emailRef.current.value;
         const password = passwordRef.current.value;
         const hashedPassword = bcrypt.hashSync(password, salt); 
 
         //console.log(hashedPassword);
         createUser(email,hashedPassword);
-        //window.location.href = "/login";
+        window.location.href = "/";
     }
 
   return (
@@ -61,13 +64,14 @@ export function Register()
 
 export function Login() 
 {
-
+    
     const emailRef = useRef();
     const passwordRef = useRef();
 
     async function handleForm(event)
     {
         event.preventDefault();
+
 
         const email = emailRef.current.value;
         const password = passwordRef.current.value;
@@ -95,9 +99,8 @@ export function Login()
         if(pass_good == true)
         {
             setCookie("email", email, 30);
-            //window.location.href = "/cando";
-            let href = useHref("/cando");
-            console.log(href);
+            window.location.href = "/";
+
         }
 
     }

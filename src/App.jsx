@@ -12,7 +12,14 @@ function App() {
 
   return (
     <>
- 
+    <BrowserRouter>
+        <Routes>
+            <Route path="/" element={ getCookie("email") != null ? <Home /> : <Login /> } />
+            <Route path="/register" element={<Register />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="*" element={ getCookie("email") != null ? <Home /> : <Login /> } />
+        </Routes>
+    </BrowserRouter>
     </>
   )
 }

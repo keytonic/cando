@@ -99,20 +99,22 @@ export function Login()
         }
 
     }
-
+    async function handleClick(event)
+    {
+        event.preventDefault();
+        window.location.href = "/register";
+    }
 
     return (
         <div className='App'>
         <header className='App-header'>
-          <form>
+         
     
             <input  ref={emailRef} type='email' placeholder='Email' /><br />
             <input  ref={passwordRef} type='password' placeholder='Password' /><br />
-            <button type='submit' style={{padding:0, borderRadius:0}} onClick={handleForm}> Login </button><br /><br /><br /><br />
-            <Link to="/register" >
-                Register
-            </Link>
-          </form>
+            <button  style={{padding:0, borderRadius:0}} onClick={handleForm}> Login </button><br /><br /><br /><br />
+            <button  style={{padding:0, borderRadius:0}} onClick={handleClick}> Register </button>
+         
         </header>
       </div>
     );

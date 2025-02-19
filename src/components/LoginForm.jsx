@@ -109,9 +109,9 @@ export function Login()
             <input  ref={emailRef} type='email' placeholder='Email' /><br />
             <input  ref={passwordRef} type='password' placeholder='Password' /><br />
             <button type='submit' style={{padding:0, borderRadius:0}} onClick={handleForm}> Login </button><br /><br /><br /><br />
-            <a >
+            <Link to="/register" >
                 Register
-            </a>
+            </Link>
           </form>
         </header>
       </div>

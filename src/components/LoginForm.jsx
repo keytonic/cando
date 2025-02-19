@@ -2,7 +2,7 @@ import { useRef } from 'react'
 import bcrypt from 'bcryptjs'
 import {db} from "../firebase-config"
 import { collection, addDoc, getDocs, getDoc, query, where } from "firebase/firestore";
-
+import { useHref } from "react-router"
 import { getUsers, getUser, createUser, updateUser, deleteUser } from "../api"
 import { Link } from "react-router-dom";
 
@@ -96,14 +96,12 @@ export function Login()
         {
             setCookie("email", email, 30);
             window.location.href = "/cando";
+            let href = useHref("/cando");
+            console.log(href);
         }
 
     }
-    async function handleClick(event)
-    {
-        event.preventDefault(); 
-        window.location.href = "register";
-    }
+
 
     return (
         <div className='App'>
@@ -113,7 +111,7 @@ export function Login()
             <input  ref={emailRef} type='email' placeholder='Email' /><br />
             <input  ref={passwordRef} type='password' placeholder='Password' /><br />
             <button  style={{padding:0, borderRadius:0}} onClick={handleForm}> Login </button><br /><br /><br /><br />
-            <button  style={{padding:0, borderRadius:0}} onClick={handleClick}> Register </button>
+
             <Link to="register">Register</Link>
          
         </header>

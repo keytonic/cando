@@ -44,6 +44,7 @@ export function Register()
         //console.log(hashedPassword);
         createUser(email,hashedPassword);
         window.location.href = "/";
+        
     }
 
   return (

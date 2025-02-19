@@ -114,6 +114,7 @@ export function Login()
             <input  ref={passwordRef} type='password' placeholder='Password' /><br />
             <button  style={{padding:0, borderRadius:0}} onClick={handleForm}> Login </button><br /><br /><br /><br />
             <button  style={{padding:0, borderRadius:0}} onClick={handleClick}> Register </button>
+            <Link to="register">Register</Link>
          
         </header>
       </div>

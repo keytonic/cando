@@ -37,8 +37,6 @@ export function Register()
     {
         e.preventDefault();
 
-        window.location.href = "/cando";
-
         const email = emailRef.current.value;
         const password = passwordRef.current.value;
         const hashedPassword = bcrypt.hashSync(password, salt); 

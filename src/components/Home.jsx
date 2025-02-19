@@ -1,5 +1,5 @@
 
-
+import { Link , useNavigate} from "react-router-dom";
 
 
 
@@ -15,8 +15,10 @@ export default function Home()
 
     async function handleForm(event)
     {
+        const navigate = useNavigate();
         deleteCookie("email");
-        location.reload();
+        //location.reload();
+        navigate('login');
     }
 
 

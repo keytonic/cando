@@ -95,14 +95,14 @@ export function Login()
         if(pass_good == true)
         {
             setCookie("email", email, 30);
-            window.location.href = "/";
+            window.location.href = "/cando";
         }
 
     }
     async function handleClick(event)
     {
         event.preventDefault();
-        window.location.href = "/register";
+        window.location.href = "/cando/register";
     }
 
     return (

@@ -4,7 +4,7 @@ import {db} from "../firebase-config"
 import { collection, addDoc, getDocs, getDoc, query, where } from "firebase/firestore";
 
 import { getUsers, getUser, createUser, updateUser, deleteUser } from "../api"
-
+import { Link } from "react-router-dom";
 
 export function setCookie(name, value, days) {
     const date = new Date();
@@ -109,7 +109,9 @@ export function Login()
             <input  ref={emailRef} type='email' placeholder='Email' /><br />
             <input  ref={passwordRef} type='password' placeholder='Password' /><br />
             <button type='submit' style={{padding:0, borderRadius:0}} onClick={handleForm}> Login </button><br /><br /><br /><br />
-            <span onClick={window.location.href = "/register"}>register</span>
+            <Link to= "./register">
+                Register
+            </Link>
           </form>
         </header>
       </div>

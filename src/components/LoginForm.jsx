@@ -101,8 +101,8 @@ export function Login()
     }
     async function handleClick(event)
     {
-        event.preventDefault();
-        window.location.href = "/register";
+        event.preventDefault(); 
+        window.location.href = "register";
     }
 
     return (

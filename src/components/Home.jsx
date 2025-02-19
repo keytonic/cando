@@ -1,6 +1,7 @@
-
+import { useState, useEffect } from "react";
 import { Link , useNavigate} from "react-router-dom";
 
+import './Home.css'
 
 
 function deleteCookie(name) 
@@ -22,11 +23,14 @@ export default function Home()
         location.reload();
     }
 
+    useEffect(() => {
+        document.getElementById("logo").classList.add("logo_move");
+    }, []); 
 
     return (
         <>
             <span>Welcome home!</span><br /><br /><br /><br />
-            <button type='submit' style={{padding:0, borderRadius:0}} onClick={handleForm}> Log out </button>
+            <button type='submit' onClick={handleForm}> Log out </button>
         </>
     );
 }

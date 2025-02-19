@@ -1,0 +1,29 @@
+
+
+.logo_move
+{
+    position: fixed;
+    animation: logo_move 2s 1;
+    animation-timing-function: ease-in-out;
+    animation-delay: 0s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes logo_move
+{
+    0%   
+    {
+        width: 226px;
+        height: 273px;
+        left: calc(50% - 113px);
+        top: calc(50% - 136px);
+    }           
+    100%  
+    {
+        width: 56px;
+        height: 68px;
+        top:0px;
+        left: 10px;
+        top: 10px;
+    }       
+}

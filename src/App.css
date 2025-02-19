@@ -1,8 +1,52 @@
+body,
+html
+{
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+
+#alert_register,
+#alert_login
+{
+    display: block;
+    color:pink
+}
+
+input,
+button
+{
+    margin: 5px;
+    padding: 5px;
+    border-radius: 8px;
+    border: 1px solid grey;;
+}
+
+form
+{
+    margin-top: 30px;
+}
+
+
 #root {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .logo {

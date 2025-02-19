@@ -6,6 +6,8 @@ import { useHref } from "react-router"
 import { getUsers, getUser, createUser, updateUser, deleteUser } from "../api"
 import { Link , useNavigate} from "react-router-dom";
 
+
+
 export function setCookie(name, value, days) {
     const date = new Date();
     date.setTime(date.getTime() + (days*24*60*60*1000));
@@ -34,13 +36,54 @@ export function Register()
     const emailRef = useRef();
     const passwordRef = useRef();
 
-    function handleLoginForm(e) 
+    function validateForm() 
+    {
+        let email = document.forms["form_register"]["email"];
+        let password = document.forms["form_register"]["password"];
+
+        if (email.value.length < 5) 
+        {
+          email.style.backgroundColor = "pink";
+          email.style.color = "black";
+          document.getElementById("alert_register").innerText = "Do it right!";
+          return false;
+        }
+        if(password.value.length < 2)
+        {
+            password.style.backgroundColor = "pink";
+            password.style.color = "black";
+            document.getElementById("alert_register").innerText = "Do it right!";
+            return false;
+        }
+
+        return true;
+    }
+
+    async function handleForm(e) 
     {
         e.preventDefault();
+
+        if(validateForm() == false) return;
 
         const email = emailRef.current.value;
         const password = passwordRef.current.value;
         const hashedPassword = bcrypt.hashSync(password, salt); 
+
+        const q = query(collection(db, "users"), where("email", "==", email));
+        const querySnapshot = await getDocs(q);
+
+        let data = null;
+        querySnapshot.forEach((doc) => {
+            data = doc.data();
+        });
+
+        if(data != null)
+        {
+            document.getElementById("alert_register").innerText = "User already exists.";
+            console.log("User already exists.");
+            return;
+        }
+
 
         //console.log(hashedPassword);
         createUser(email,hashedPassword);
@@ -52,10 +95,11 @@ export function Register()
   return (
     <div className='App'>
       <header className='App-header'>
-        <form>
-          <input  ref={emailRef} type='email' placeholder='Email' /><br />
-          <input  ref={passwordRef} type='password' placeholder='Password' /><br />
-          <button type='submit' style={{padding:0, borderRadius:0}} onClick={handleLoginForm}> Register </button><br />
+        <form name="form_register" onSubmit={handleForm}>
+        <input name="email"  ref={emailRef} type='email' placeholder='Email' required="true" /><br />
+        <input name="password" ref={passwordRef} type='password' placeholder='Password' required="true"/><br />
+        <span id="alert_register"></span>
+          <button type='submit'> Register </button><br />
         </form>
       </header>
     </div>
@@ -70,10 +114,34 @@ export function Login()
     const emailRef = useRef();
     const passwordRef = useRef();
 
+    function validateForm() 
+    {
+        let email = document.forms["form_login"]["email"];
+        let password = document.forms["form_login"]["password"];
+
+        if (email.value.length < 5) 
+        {
+            email.style.backgroundColor = "pink";
+            email.style.color = "black";
+            document.getElementById("alert_login").innerText = "Do it right!";
+            return false;
+        }
+        if(password.value.length < 2)
+        {
+            password.style.backgroundColor = "pink";
+            password.style.color = "black";
+            document.getElementById("alert_login").innerText = "Do it right!";
+            return false;
+        }
+
+        return true;
+    }
+
     async function handleForm(event)
     {
         event.preventDefault();
 
+        if(validateForm() == false) return;
 
         const email = emailRef.current.value;
         const password = passwordRef.current.value;
@@ -91,6 +159,7 @@ export function Login()
         if(data == null)
         {
             console.log("account with that email not found");
+            document.getElementById("alert_login").innerText = "User not found.";
             return;
         }
 
@@ -103,6 +172,7 @@ export function Login()
             setCookie("email", email, 30);
             //window.location.href = "/";
             navigate('/');
+            
             location.reload();
 
         }
@@ -114,11 +184,13 @@ export function Login()
         <div className='App'>
         <header className='App-header'>
          
-    
-            <input  ref={emailRef} type='email' placeholder='Email' /><br />
-            <input  ref={passwordRef} type='password' placeholder='Password' /><br />
-            <button  style={{padding:0, borderRadius:0}} onClick={handleForm}> Login </button><br /><br /><br /><br />
-
+        <form name="form_login" onSubmit={handleForm}>
+            <input name="email"  ref={emailRef} type='email' placeholder='Email' required="true" /><br />
+            <input name="password" ref={passwordRef} type='password' placeholder='Password' required="true"/><br />
+            <span id="alert_login"></span>
+            <button type="submit">Login </button>
+        </form>
+            <br /><br /><br /><br />
             <Link to="register">Register</Link>
          
         </header>

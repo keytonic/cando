@@ -14,10 +14,10 @@ function App() {
     <>
     <BrowserRouter>
         <Routes>
-            <Route path="/" element={ getCookie("email") != null ? <Home /> : <Login /> } />
+            <Route path="/" element={ <Home /> } />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
-            <Route path="*" element={ getCookie("email") != null ? <Home /> : <Login /> } />
+            <Route path="*" element={ <Home /> } />
         </Routes>
     </BrowserRouter>
     </>

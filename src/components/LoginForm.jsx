@@ -95,7 +95,7 @@ export function Login()
         if(pass_good == true)
         {
             setCookie("email", email, 30);
-            window.location.href = "/cando";
+            //window.location.href = "/cando";
             let href = useHref("/cando");
             console.log(href);
         }

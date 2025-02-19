@@ -95,7 +95,7 @@ export function Login()
         if(pass_good == true)
         {
             setCookie("email", email, 30);
-            window.location.href = "/cando";
+            window.location.href = "/";
         }
 
     }
@@ -109,7 +109,7 @@ export function Login()
             <input  ref={emailRef} type='email' placeholder='Email' /><br />
             <input  ref={passwordRef} type='password' placeholder='Password' /><br />
             <button type='submit' style={{padding:0, borderRadius:0}} onClick={handleForm}> Login </button><br /><br /><br /><br />
-            <a href= "/register">
+            <a >
                 Register
             </a>
           </form>

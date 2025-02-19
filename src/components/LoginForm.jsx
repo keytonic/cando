@@ -4,7 +4,7 @@ import {db} from "../firebase-config"
 import { collection, addDoc, getDocs, getDoc, query, where } from "firebase/firestore";
 import { useHref } from "react-router"
 import { getUsers, getUser, createUser, updateUser, deleteUser } from "../api"
-import { Link } from "react-router-dom";
+import { Link , useNavigate} from "react-router-dom";
 
 export function setCookie(name, value, days) {
     const date = new Date();
@@ -28,7 +28,8 @@ export function getCookie(name) {
 
 export function Register() 
 {
-    
+    const navigate = useNavigate();
+
     const salt = bcrypt.genSaltSync(10);
     const emailRef = useRef();
     const passwordRef = useRef();
@@ -43,8 +44,9 @@ export function Register()
 
         //console.log(hashedPassword);
         createUser(email,hashedPassword);
-        window.location.href = "/";
-        
+        //window.location.href = "/";
+        navigate('/');
+
     }
 
   return (
@@ -63,7 +65,8 @@ export function Register()
 
 export function Login() 
 {
-    
+    const navigate = useNavigate();
+
     const emailRef = useRef();
     const passwordRef = useRef();
 
@@ -98,7 +101,8 @@ export function Login()
         if(pass_good == true)
         {
             setCookie("email", email, 30);
-            window.location.href = "/";
+            //window.location.href = "/";
+            navigate('home');
 
         }
 

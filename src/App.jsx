@@ -15,6 +15,7 @@ function App() {
     <BrowserRouter basename="/cando">
         <Routes>
             <Route path="/" element={ getCookie("email") != null ? <Home /> : <Login /> } />
+            <Route path="home" element={<Home />} />
             <Route path="register" element={<Register />} />
             <Route path="login" element={<Login />} />
             <Route path="*" element={ getCookie("email") != null ? <Home /> : <Login /> } />

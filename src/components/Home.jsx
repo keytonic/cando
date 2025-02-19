@@ -12,10 +12,10 @@ function deleteCookie(name)
 
 export default function Home() 
 {
-
+    const navigate = useNavigate();
     async function handleForm(event)
     {
-        const navigate = useNavigate();
+        
         deleteCookie("email");
         //location.reload();
         navigate('login');

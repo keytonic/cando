@@ -102,7 +102,8 @@ export function Login()
         {
             setCookie("email", email, 30);
             //window.location.href = "/";
-            navigate('home');
+            navigate('/');
+            location.reload();
 
         }
 

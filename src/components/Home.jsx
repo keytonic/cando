@@ -18,7 +18,8 @@ export default function Home()
         
         deleteCookie("email");
         //location.reload();
-        navigate('login');
+        navigate('/');
+        location.reload();
     }
 
 

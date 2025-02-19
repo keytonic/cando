@@ -27,7 +27,7 @@ export async function createUser(email, password, username = "")
 {
     const docRef = await addDoc(collection(db, "users"), { username: username, email: email, password: password });
     console.log(`New user added email: ${email} username: ${username} id: ${docRef.id}`);
-    window.location.href = "/login";
+    window.location.href = "/cando/login";
     return docRef;
 }
 

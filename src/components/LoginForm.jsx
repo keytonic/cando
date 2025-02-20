@@ -2,11 +2,9 @@ import { useRef } from 'react'
 import bcrypt from 'bcryptjs'
 import {db} from "../firebase-config"
 import { collection, addDoc, getDocs, getDoc, query, where } from "firebase/firestore";
-import { useHref } from "react-router"
-import { getUsers, getUser, createUser, updateUser, deleteUser } from "../api"
 import { Link , useNavigate} from "react-router-dom";
-
-
+import logo from '../assets/cando.png';
+import './LoginForm.css'
 
 export function setCookie(name, value, days) {
     const date = new Date();
@@ -34,25 +32,34 @@ export function Register()
 
     const salt = bcrypt.genSaltSync(10);
     const emailRef = useRef();
+    const userRef = useRef();
     const passwordRef = useRef();
 
     function validateForm() 
     {
         let email = document.forms["form_register"]["email"];
         let password = document.forms["form_register"]["password"];
+        let username = document.forms["form_register"]["username"];
 
         if (email.value.length < 5) 
         {
-          email.style.backgroundColor = "pink";
-          email.style.color = "black";
-          document.getElementById("alert_register").innerText = "Do it right!";
-          return false;
+            email.style.backgroundColor = "#fec8fd";
+            email.style.color = "black";
+            document.getElementById("alert_register").innerText = "Enter a valid email.";
+            return false;
         }
-        if(password.value.length < 2)
+        else if(password.value.length < 2)
         {
-            password.style.backgroundColor = "pink";
+            password.style.backgroundColor = "#fec8fd";
             password.style.color = "black";
-            document.getElementById("alert_register").innerText = "Do it right!";
+            document.getElementById("alert_register").innerText = "Password must be atleast two characters long.";
+            return false;
+        }
+        else if(username.value.length < 5)
+        {
+            username.style.backgroundColor = "#fec8fd";
+            username.style.color = "black";
+            document.getElementById("alert_register").innerText = "Username must be atleast five characters long.";
             return false;
         }
 
@@ -68,6 +75,7 @@ export function Register()
         const email = emailRef.current.value;
         const password = passwordRef.current.value;
         const hashedPassword = bcrypt.hashSync(password, salt); 
+        const username = userRef.current.value;
 
         const q = query(collection(db, "users"), where("email", "==", email));
         const querySnapshot = await getDocs(q);
@@ -84,25 +92,30 @@ export function Register()
             return;
         }
 
-
-        //console.log(hashedPassword);
-        createUser(email,hashedPassword);
-        //window.location.href = "/";
+        const docRef = await addDoc(collection(db, "users"), { username: username, email: email, password: hashedPassword });
+        console.log(`New user added email: ${email} username: ${username} id: ${docRef.id}`);
         navigate('/');
-
     }
 
   return (
-    <div className='App'>
-      <header className='App-header'>
-        <form name="form_register" onSubmit={handleForm}>
-        <input name="email"  ref={emailRef} type='email' placeholder='Email' required="true" /><br />
-        <input name="password" ref={passwordRef} type='password' placeholder='Password' required="true"/><br />
-        <span id="alert_register"></span>
-          <button type='submit'> Register </button><br />
-        </form>
-      </header>
-    </div>
+    <>
+        <Link to="/">
+            <img id="logo" src={logo} alt="Logo" />
+        </Link>
+        <div className='App'>
+            <header className='App-header'>
+                <form name="form_register" onSubmit={handleForm}>
+                    <input name="email"  ref={emailRef} type='email' placeholder='Email' required  autoComplete="on" /><br />
+                    <input name="username"  ref={userRef} type='text' placeholder='Username' required  autoComplete="on" /><br />
+                    <input name="password" ref={passwordRef} type='password' placeholder='Password' required autoComplete="on" /><br />
+                    <span id="alert_register"></span>
+                    <button type='submit'> Register </button><br />
+                </form>
+                <br /><br /><br /><br />
+                <Link to="/login">Login</Link>
+            </header>
+        </div>
+    </>
   )
 }
 
@@ -121,14 +134,14 @@ export function Login()
 
         if (email.value.length < 5) 
         {
-            email.style.backgroundColor = "pink";
+            email.style.backgroundColor = "#fec8fd";
             email.style.color = "black";
             document.getElementById("alert_login").innerText = "Do it right!";
             return false;
         }
         if(password.value.length < 2)
         {
-            password.style.backgroundColor = "pink";
+            password.style.backgroundColor = "#fec8fd";
             password.style.color = "black";
             document.getElementById("alert_login").innerText = "Do it right!";
             return false;
@@ -181,19 +194,22 @@ export function Login()
 
 
     return (
-        <div className='App'>
-        <header className='App-header'>
-         
-        <form name="form_login" onSubmit={handleForm}>
-            <input name="email"  ref={emailRef} type='email' placeholder='Email' required="true" /><br />
-            <input name="password" ref={passwordRef} type='password' placeholder='Password' required="true"/><br />
-            <span id="alert_login"></span>
-            <button type="submit">Login </button>
-        </form>
-            <br /><br /><br /><br />
-            <Link to="register">Register</Link>
-         
-        </header>
-      </div>
+        <>
+            <Link to="/">
+                <img id="logo" src={logo} alt="Logo" />
+            </Link>
+            <div className='App'>
+                <header className='App-header'>
+                    <form name="form_login" onSubmit={handleForm}>
+                        <input name="email"  ref={emailRef} type='email' placeholder='Email' required autoComplete="on" /><br />
+                        <input name="password" ref={passwordRef} type='password' placeholder='Password' required autoComplete="on" /><br />
+                        <span id="alert_login"></span>
+                        <button type="submit">Login </button>
+                    </form>
+                    <br /><br /><br /><br />
+                    <Link to="/register">Register</Link>
+                </header>
+            </div>
+        </>
     );
 }

@@ -1,0 +1,27 @@
+.navbar-wrapper
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    max-width: 800px;
+    background-color: #324e82;
+    height: 60px;
+    align-items: center;
+    width: 100%;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.nav-icon
+{
+    margin: 10px;
+}
+
+.nav-cell
+{
+    display: flex;
+    color: white;
+    font-size: 1em;
+    font-weight: 500;
+}

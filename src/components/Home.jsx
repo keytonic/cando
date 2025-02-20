@@ -12,7 +12,7 @@ export default function Home()
 {
     return (
         <>
-            {getCookie("email") == null ? <LoginRegister /> : <><Navbar /><Body /><Footer /></>}
+            {getCookie("email") == null ? <LoginRegister action="login"/> : <><Navbar /><Body /><Footer /></>}
         </>
     );
 }

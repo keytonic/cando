@@ -4,7 +4,7 @@ import {db} from "../firebase-config"
 import { collection, addDoc, getDocs, getDoc, query, where } from "firebase/firestore";
 import { Link , useNavigate} from "react-router-dom";
 import logo from '../assets/cando.png';
-import './LoginForm.css'
+import './LoginRegister.css'
 
 export function setCookie(name, value, days) {
     const date = new Date();
@@ -212,4 +212,19 @@ export function Login()
             </div>
         </>
     );
+}
+
+
+export default function LoginRegister(props)
+{
+
+
+    return (
+        <>
+            <div className="login-register-wrapper">
+                {props.action == "login" ? <Login /> : <Register />}
+            </div>
+        </>
+    );
+
 }

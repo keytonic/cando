@@ -20,9 +20,10 @@ export default function Body()
     async function handleForm(event)
     {
         deleteCookie("email");
-        //navigate('/');
+        navigate('/');
+        navigate(0);
         //location.reload();
-        window.location.href = "/";
+        //window.location.href = "/";
     }
 
     return (

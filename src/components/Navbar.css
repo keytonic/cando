@@ -4,7 +4,7 @@
     flex-direction: row;
     justify-content: space-between;
     max-width: 800px;
-    background-color: #324e82;
+    background-color: #4d708e;
     height: 50px;
     align-items: center;
     width: 100%;
@@ -15,16 +15,19 @@
 
 .nav-icon
 {
+    /*
     margin-right: 10px;
-    margin-left: 10px;
+    margin-left: 10px;*/
 }
 
 .nav-cell
 {
     display: flex;
     color: white;
-    font-size: 1em;
-    font-weight: 500;
+    width: 50px;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
 
 #top-container
@@ -67,4 +70,27 @@
 #star-check
 {
     height: 28px;
+}
+
+.title-cell
+{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+
+   
+
+
+}
+
+#span-title-id
+{
+    font-size: 24px;
+    /*font-weight: lighter !important;*/
+    font-weight: 300;
+    padding-left: 5px;
+    white-space: nowrap;
 }

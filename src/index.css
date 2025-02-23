@@ -1,8 +1,11 @@
 *
 {
-    font-family: "Lato", "Helvetica Neue", "Helvetica", Sans-Serif;
+    /*font-family: "Lato", "Helvetica Neue", "Helvetica", Sans-Serif;*/
+    font-family: "Lato", "Open Sans", "Microsoft Yahei", STXihei, "Hiragino Kaku Gothic Pro", Osaka, 'MS PGothic', Meiryo, "Geneva CY", "Lucida Grande", "Arial Unicode MS", "Helvetica Neue", "Arial", Sans-Serif;
+    text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     font-size: 16px;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 html
 {
@@ -73,7 +76,7 @@ body {
   margin: 0;
   display: flex;
   place-items: center;
-  min-width: 320px;
+  /*min-width: 320px;*/
   min-height: 100vh;
 }
 

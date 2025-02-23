@@ -5,7 +5,7 @@
     justify-content: space-between;
     max-width: 800px;
     background-color: #324e82;
-    height: 60px;
+    height: 50px;
     align-items: center;
     width: 100%;
     max-width: 800px;
@@ -15,7 +15,8 @@
 
 .nav-icon
 {
-    margin: 10px;
+    margin-right: 10px;
+    margin-left: 10px;
 }
 
 .nav-cell
@@ -24,4 +25,46 @@
     color: white;
     font-size: 1em;
     font-weight: 500;
+}
+
+#top-container
+{
+    position: sticky;
+    top: 0px;
+}
+
+.login-bar-alert
+{
+    background-color: #E8E8E8;
+    width: 100%;
+    min-height: 50px;
+    border-bottom: 1px solid #c0c0c0;
+    color:#747474;
+    display: none;
+    flex-direction: row;
+    align-items: center;
+
+
+}
+
+#login-bar-title
+{
+
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: 10px;
+    font-weight: bold;
+    color: #125b79;
+}
+
+#canndo-text
+{
+    margin-left: 4px;
+}
+
+#star-check
+{
+    height: 28px;
 }

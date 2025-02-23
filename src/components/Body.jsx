@@ -16,12 +16,13 @@ function deleteCookie(name)
 
 export default function Body() 
 {
-    const navigate = useNavigate();
+    //const navigate = useNavigate();
     async function handleForm(event)
     {
         deleteCookie("email");
-        navigate('/');
-        location.reload();
+        //navigate('/');
+        //location.reload();
+        window.location.href = "/";
     }
 
     return (

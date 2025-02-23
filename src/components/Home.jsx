@@ -6,13 +6,15 @@ import './Home.css'
 import Navbar from "./Navbar";
 import Body from "./Body";
 import Footer from "./Footer";
-
+import Front from "./Front";
 
 export default function Home() 
 {
     return (
         <>
-            {getCookie("email") == null ? <LoginRegister action="login"/> : <><Navbar /><Body /><Footer /></>}
+            <Navbar />
+            {getCookie("email") == null ? <Front /> : <Body />}
+            <Footer />
         </>
     );
 }

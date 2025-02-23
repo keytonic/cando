@@ -132,7 +132,7 @@ export function Register()
         const docRef = await addDoc(collection(db, "users"), { username: username, email: email, password: hashedPassword });
         console.log(`New user added email: ${email} username: ${username} id: ${docRef.id}`);
         navigate('/');
-        location.reload();
+        //location.reload();
         //window.location.href = "/";
     }
 /*
@@ -256,7 +256,7 @@ export function Login()
             setCookie("email", email, 30);
             //window.location.href = "/";
             navigate('/');
-            location.reload();
+            //location.reload();
             //window.location.href = "/";
 
             //navigate(0);

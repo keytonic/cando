@@ -21,7 +21,7 @@ export default function Body()
     {
         deleteCookie("email");
         navigate('/');
-        navigate(0);
+        window.location.reload();
         //location.reload();
         //location.reload();
         //window.location.href = "/";

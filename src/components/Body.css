@@ -111,6 +111,10 @@
     text-align: start;
 }
 
+.nav-cell
+{
+    height: 100%;
+}
 .text-cell
 {
     padding: 10px;
@@ -132,6 +136,14 @@
 
 #check-icon:hover,
 #check-cell:hover > svg
+{
+
+    fill: #EF6461 !important;
+}
+
+
+.nav-icon:hover,
+.nav-cell:hover > svg
 {
 
     fill: #EF6461 !important;

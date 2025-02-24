@@ -4,13 +4,13 @@ import './App.css'
 import LoginRegister from "./components/LoginRegister"
 
 import Home from "./components/Home"
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link, MemoryRouter } from "react-router-dom";
 
 
 function App() {
     return (
         <>
-            <BrowserRouter basename="/cando">
+            <MemoryRouter >
                 <Routes>
                     <Route path="/" element={ <Home /> } />
                     <Route path="home" element={ <Home /> } />
@@ -18,7 +18,7 @@ function App() {
                     <Route path="login" element={<LoginRegister action="login"/>} />
                     <Route path="*" element={ <Home /> } />
                 </Routes>
-            </BrowserRouter>
+            </MemoryRouter>
         </>
     )
 }

@@ -97,9 +97,28 @@
     
 }
 
+.trash-cell
+{
+    display: flex;
+    width: 50px;
+    height: 100%;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.trash-cell svg {
+    padding: 10px;
+}
 .check-cell svg
 {
     padding: 10px;
+}
+
+#logout-button
+{
+    position: relative;
+    bottom: 0px;
+    margin-top: 15px;
 }
 
 .task-text
@@ -144,6 +163,13 @@
 
 .nav-icon:hover,
 .nav-cell:hover > svg
+{
+
+    fill: #EF6461 !important;
+}
+
+#trash-icon:hover,
+.trash-cell:hover > svg
 {
 
     fill: #EF6461 !important;

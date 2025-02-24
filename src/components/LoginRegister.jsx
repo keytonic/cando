@@ -134,7 +134,7 @@ export function Register()
 
         const docRef = await addDoc(collection(db, "users"), { username: username, email: email, password: hashedPassword });
         console.log(`New user added email: ${email} username: ${username} id: ${docRef.id}`);
-        navigate('/');
+        navigate('/login');
         window.location.reload();
         //location.reload();
         //window.location.href = "/";

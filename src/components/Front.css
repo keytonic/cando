@@ -6,3 +6,8 @@
     flex-direction: column;
     flex: 1;
 }
+
+#installButton 
+{
+    display: none;
+}

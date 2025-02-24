@@ -40,14 +40,25 @@ export default function Navbar()
 
     function closeAlert(event)
     {
-        document.getElementById("login-bar-alert").style.display = "none";
-        setCookie("accept-cookies", "true", 365);
+        const alert_bar = document.getElementById("login-bar-alert");
+
+        if(alert_bar != null)
+        {
+            document.getElementById("login-bar-alert").style.display = "none";
+            setCookie("accept-cookies", "true", 365);
+        }
     }
+
     useEffect(() => {
 
         if(getCookie("accept-cookies") == null)
         {
-            document.getElementById("login-bar-alert").style.display = "flex";
+            const alert_bar = document.getElementById("login-bar-alert");
+
+            if(alert_bar != null)
+            {
+                document.getElementById("login-bar-alert").style.display = "flex";
+            }
         }
 
     }, []);

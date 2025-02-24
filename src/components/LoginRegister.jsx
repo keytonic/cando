@@ -58,7 +58,10 @@ export function getCookie(name) {
     }
     return null;
   }
-
+  export function deleteCookie(name) 
+  {
+      document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+  }
 export function Register() 
 {
     const navigate = useNavigate();
@@ -231,14 +234,19 @@ export function Login()
 
         const email = emailRef.current.value;
         const password = passwordRef.current.value;
+        let id = "";
+        
 
         const q = query(collection(db, "users"), where("email", "==", email));
         const querySnapshot = await getDocs(q);
+
+       
 
         let data = null;
         querySnapshot.forEach((doc) => {
             //console.log(doc.id, " => ", doc.data());
             data = doc.data();
+            id = doc.id;
         });
 
         if(data == null)
@@ -248,6 +256,7 @@ export function Login()
             return;
         }
 
+
         let pass_good = bcrypt.compareSync(password, data.password);
         //console.log(data.password);
         //console.log(pass_good);
@@ -255,6 +264,7 @@ export function Login()
         if(pass_good == true)
         {
             setCookie("email", email, 30);
+            setCookie("userid", id, 30);
             //window.location.href = "/";
             navigate('/');
             //navigate(0);

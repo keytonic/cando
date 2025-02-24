@@ -4,7 +4,7 @@ import LoginRegister, {getCookie} from "../components/LoginRegister"
 
 import './Home.css'
 import Navbar from "./Navbar";
-import Body from "./Body";
+import {Body} from "./Body";
 import Footer from "./Footer";
 import Front from "./Front";
 

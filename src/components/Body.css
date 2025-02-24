@@ -116,3 +116,23 @@
     padding: 10px;
     width: 100%;
 }
+
+#add-icon-cell,
+#add-icon
+{
+    cursor: pointer;
+}
+
+#add-icon:hover,
+#add-icon-cell:hover > svg
+{
+
+    fill: #EF6461 !important;
+}
+
+#check-icon:hover,
+#check-cell:hover > svg
+{
+
+    fill: #EF6461 !important;
+}

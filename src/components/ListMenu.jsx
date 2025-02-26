@@ -1,8 +1,5 @@
+
 import './ListMenu.css'
-
-
-
-
 
 export default function ListMenu(props)
 {

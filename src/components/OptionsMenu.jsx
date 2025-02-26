@@ -1,8 +1,5 @@
 import './OptionsMenu.css'
 
-
-
-
 export default function OptionsMenu(props)
 {
     function handleClick(event)
@@ -19,10 +16,8 @@ export default function OptionsMenu(props)
 
             document.getElementById("body-wrapper").style.pointerEvents = "auto";
             document.getElementById("body").style.position = "inherit";
-            //document.getElementById("body").style.overflowY = "auto";
         }
     }
-
 
     return (
         <div id="options-menu-wrapper">
@@ -35,6 +30,9 @@ export default function OptionsMenu(props)
                         <path id="options-icon-path" d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
                     </svg>
                 </div>
+            </div>
+            <div id="options-menu-body-wrapper">
+
             </div>
         </div>
     );

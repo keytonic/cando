@@ -1,13 +1,13 @@
 import { useState, useEffect, useRef } from "react";
 import { Link , useNavigate} from "react-router-dom";
 import { collection, addDoc, getDocs, getDoc, query, where ,updateDoc,doc, orderBy, Timestamp,deleteDoc } from "firebase/firestore";
-import {db} from "../firebase-config"
-import {getCookie, deleteCookie} from "../components/LoginRegister"
+import {db} from "../Firebase"
+
 import ListMenu from "../components/ListMenu"
 import OptionsMenu from "../components/OptionsMenu"
 import './Body.css'
 
-
+import {getCookie, deleteCookie, setCookie} from "../Tools"
 
 
 export function Body() 

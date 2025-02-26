@@ -1,20 +1,8 @@
 
-
-
 import './Front.css'
-
-
-
-
 
 export default function Front() 
 {
-/*
-    useEffect(() => {
-        //Runs only on the first render
-      }, []);
-*/
-
 
     let deferredPromp;
     window.addEventListener("beforeinstallprompt", function (event) 
@@ -46,9 +34,6 @@ export default function Front()
             });
         });
     });
-
-
-
 
     return (
 

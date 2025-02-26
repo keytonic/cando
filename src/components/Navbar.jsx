@@ -139,7 +139,7 @@ export default function Navbar()
 
             document.getElementById("body-wrapper").style.pointerEvents = "none";
             document.getElementById("body").style.position = "fixed";
-            document.getElementById("body").style.overflowY = "scroll";
+            //document.getElementById("body").style.overflowY = "scroll";
         }
         else if(event.target.id == "nav-cell-options" || event.target.id == "nav-icon-options" || event.target.id == "nav-path-options")
         {
@@ -170,7 +170,7 @@ export default function Navbar()
 
             document.getElementById("body-wrapper").style.pointerEvents = "none";
             document.getElementById("body").style.position = "fixed";
-            document.getElementById("body").style.overflowY = "scroll";
+            //document.getElementById("body").style.overflowY = "scroll";
         }
     }
 

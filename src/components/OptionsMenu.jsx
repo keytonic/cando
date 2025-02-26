@@ -19,7 +19,7 @@ export default function OptionsMenu(props)
 
             document.getElementById("body-wrapper").style.pointerEvents = "auto";
             document.getElementById("body").style.position = "inherit";
-            document.getElementById("body").style.overflowY = "auto";
+            //document.getElementById("body").style.overflowY = "auto";
         }
     }
 

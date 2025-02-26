@@ -17,6 +17,10 @@ export default function ListMenu(props)
             listMenuWrapper.style.visibility = "hidden";
             listMenuWrapper.style.width = "0px";
             listMenuWrapper.style.opacity = "0";
+
+            document.getElementById("body-wrapper").style.pointerEvents = "auto";
+            document.getElementById("body").style.position = "inherit";
+            document.getElementById("body").style.overflowY = "auto";
         }
     }
 

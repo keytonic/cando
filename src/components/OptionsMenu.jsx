@@ -16,6 +16,10 @@ export default function OptionsMenu(props)
             optionsMenuWrapper.style.visibility = "hidden";
             optionsMenuWrapper.style.width = "0px";
             optionsMenuWrapper.style.opacity = "0";
+
+            document.getElementById("body-wrapper").style.pointerEvents = "auto";
+            document.getElementById("body").style.position = "inherit";
+            document.getElementById("body").style.overflowY = "auto";
         }
     }
 

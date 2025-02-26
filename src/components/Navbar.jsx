@@ -136,6 +136,10 @@ export default function Navbar()
             optionsMenuWrapper.style.visibility = "hidden";
             optionsMenuWrapper.style.width = "0px";
             optionsMenuWrapper.style.opacity = "0";
+
+            document.getElementById("body-wrapper").style.pointerEvents = "none";
+            document.getElementById("body").style.position = "fixed";
+            document.getElementById("body").style.overflowY = "scroll";
         }
         else if(event.target.id == "nav-cell-options" || event.target.id == "nav-icon-options" || event.target.id == "nav-path-options")
         {
@@ -163,6 +167,10 @@ export default function Navbar()
             listMenuWrapper.style.visibility = "hidden";
             listMenuWrapper.style.width = "0px";
             listMenuWrapper.style.opacity = "0";
+
+            document.getElementById("body-wrapper").style.pointerEvents = "none";
+            document.getElementById("body").style.position = "fixed";
+            document.getElementById("body").style.overflowY = "scroll";
         }
     }
 

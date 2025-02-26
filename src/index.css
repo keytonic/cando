@@ -10,9 +10,14 @@
 html
 {
     background-color: #0C5776;
-    background-image: linear-gradient(226deg, #0C5776, #F4F0F0);
+    /*background-image: linear-gradient(226deg, #0C5776, #F4F0F0);*/
     /*scrollbar-color: red transparent;*/
     
+}
+
+body
+{
+    background-image: linear-gradient(226deg, #0C5776, #F4F0F0);
 }
 
 /*try to prevent autofill from changinng theme colors*/

@@ -68,7 +68,7 @@ export function Register()
 
     const salt = bcrypt.genSaltSync(10);
     const emailRef = useRef();
-    const userRef = useRef();
+    const usernameRef = useRef();
     const passwordRef = useRef();
 
     function validateForm() 
@@ -115,7 +115,7 @@ export function Register()
         const email = emailRef.current.value;
         const password = passwordRef.current.value;
         const hashedPassword = bcrypt.hashSync(password, salt); 
-        const username = userRef.current.value;
+        const username = usernameRef.current.value;
 
         const q = query(collection(db, "users"), where("email", "==", email));
         const querySnapshot = await getDocs(q);
@@ -149,7 +149,7 @@ export function Register()
             <header className='App-header'>
                 <form name="form_register" onSubmit={handleForm}>
                     <input name="email"  ref={emailRef} type='email' placeholder='Email' required  autoComplete="on" /><br />
-                    <input name="username"  ref={userRef} type='text' placeholder='Username' required  autoComplete="on" /><br />
+                    <input name="username"  ref={usernameRef} type='text' placeholder='Username' required  autoComplete="on" /><br />
                     <input name="password" ref={passwordRef} type='password' placeholder='Password' required autoComplete="on" /><br />
                     <span id="alert_register"></span>
                     <button type='submit'> Register </button><br />
@@ -174,7 +174,7 @@ export function Register()
                     <header className='App-header'>
                         <form id="form_register" name="form_register" onSubmit={handleForm}>
                             <label htmlFor="form-username" className="opacity0" id="form-username-label">Username:</label>
-                            <input id="form-username"  name="username"  ref={userRef} type='text' placeholder-slug="Username" placeholder='Username' required autoComplete="on" onClick={handleClick} onBlur={handleBlur} />  
+                            <input id="form-username"  name="username"  ref={usernameRef} type='text' placeholder-slug="Username" placeholder='Username' required autoComplete="on" onClick={handleClick} onBlur={handleBlur} />  
                             <label htmlFor="form-email" className="opacity0" id="form-email-label">Email:</label>
                             <input id="form-email"  name="email"  ref={emailRef} type='email' placeholder-slug="Email" placeholder='Email' required autoComplete="on" onClick={handleClick} onBlur={handleBlur} />
                             <label htmlFor="form-password" className="opacity0" id="form-password-label">Password:</label>

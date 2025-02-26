@@ -3,6 +3,8 @@ import { Link , useNavigate} from "react-router-dom";
 import { collection, addDoc, getDocs, getDoc, query, where ,updateDoc,doc, orderBy, Timestamp,deleteDoc } from "firebase/firestore";
 import {db} from "../firebase-config"
 import {getCookie, deleteCookie} from "../components/LoginRegister"
+import ListMenu from "../components/ListMenu"
+import OptionsMenu from "../components/OptionsMenu"
 import './Body.css'
 
 
@@ -82,6 +84,10 @@ export function Body()
                     setTaskData(0);
                 } 
             }
+            else
+            {
+                alert(`who clicked me? class:${event.target.getAttribute("class")} id:${event.target.id}`);
+            }
         }
     
         function StatusIcon(props)
@@ -92,7 +98,7 @@ export function Body()
             return (
                 <svg id="check-icon" xmlns="http://www.w3.org/2000/svg" className={cls} width="28" height="28" fill="grey" viewBox="0 0 16 16">
                     <path id="path-check" d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
-                    <path id="path-chech" style={{display: disp}} d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z"/>
+                    <path id="path-check" style={{display: disp}} d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z"/>
                 </svg>
             );
             
@@ -198,6 +204,11 @@ export function Body()
         {
             event.target.setAttribute("placeholder","");
         }
+        else
+        {
+            alert(`who clicked me? class:${event.target.getAttribute("class")} id:${event.target.id}`);
+        }
+        
     }
 
     function handleBlur(event)
@@ -228,7 +239,7 @@ export function Body()
 
     return (
         <>
-            <div className="body-wrapper">
+            <div className="body-wrapper" id="body-wrapper">
                 <div id="add-todo-wrapper">
                     <div id="add-icon-cell" onClick={handleClick}>
                         <svg id="add-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white" viewBox="0 0 16 16">
@@ -247,6 +258,9 @@ export function Body()
                 
                 
             </div>
+
+            <ListMenu />
+            <OptionsMenu />
             
         </>
     );

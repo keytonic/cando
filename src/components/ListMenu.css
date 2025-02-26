@@ -1,0 +1,65 @@
+
+
+#list-menu-wrapper
+{
+    background-color: #4d708e;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    z-index: 9999;
+    transition: width 1s ease-in-out, opacity 1s ease-in-out,visibility 1s ease-in-out;
+    opacity: 0;
+    visibility: hidden;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 400px;
+    max-height: 100vh;
+
+    box-shadow: 4px 4px 7px 3px rgb(0 0 0 / 22%);
+}
+
+#list-menu-nav-bar
+{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 50px;
+    width: 100%;
+}
+
+
+
+#list-menu-title-cell
+{
+    width: 100%;
+}
+
+#list-icon-close:hover,
+#list-menu-close-cell:hover > svg
+{
+
+    fill: #EF6461 !important;
+}
+
+.list-menu-nav-cell
+{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+#list-menu-close-cell
+{
+    width: 50px;
+}

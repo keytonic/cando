@@ -35,6 +35,17 @@ export function deleteCookie(name)
 
 export default function Navbar() 
 {
+    useEffect(() => {
+
+
+        window.onresize = function (event) {
+            adjustForScreenSize();
+        }
+
+
+    }, []);
+
+
 
     const navigate = useNavigate();
 
@@ -74,6 +85,89 @@ export default function Navbar()
             navigate("/register");
         }
     }
+    function adjustForScreenSize() 
+    {
+        const rec = document.getElementById('navbar-wrapper').getBoundingClientRect();
+
+        let listMenuWrapper = document.getElementById('list-menu-wrapper');
+        let optionsMenuWrapper = document.getElementById('options-menu-wrapper');
+
+        listMenuWrapper.style.transition = "unset";
+        listMenuWrapper.style.left = rec.left + "px";
+        listMenuWrapper.style.width = (rec.width / 2) + "px";
+
+        optionsMenuWrapper.style.transition = "unset";
+        optionsMenuWrapper.style.right = rec.left + "px";
+        optionsMenuWrapper.style.width = (rec.width / 2) + "px";
+
+        const element = document.getElementById('body-wrapper');
+        const computedStyle = window.getComputedStyle(element);
+        const height = computedStyle.getPropertyValue('height');
+        
+        listMenuWrapper.style.height = (parseInt(height.slice(0,-2)) + 50 + 15) + "px";
+        optionsMenuWrapper.style.height = (parseInt(height.slice(0,-2)) + 50 + 15) + "px";
+    }
+    function handleClick(event)
+    {
+        if(event.target.id == "nav-cell-lists" || event.target.id == "nav-icon-lists" || event.target.id == "nav-path-lists")
+        {
+            const rec = document.getElementById('navbar-wrapper').getBoundingClientRect();
+
+            let listMenuWrapper = document.getElementById('list-menu-wrapper');
+
+            listMenuWrapper.style.transition = "width 1s ease-in-out, opacity 1s ease-in-out,visibility 1s ease-in-out";
+            listMenuWrapper.style.left = rec.left + "px";
+            listMenuWrapper.style.visibility = "inherit";
+            listMenuWrapper.style.width = (rec.width / 2) + "px";
+            listMenuWrapper.style.opacity = ".95";
+
+            const element = document.getElementById('body-wrapper');
+            const computedStyle = window.getComputedStyle(element);
+            const height = computedStyle.getPropertyValue('height');
+            
+            listMenuWrapper.style.height = (parseInt(height.slice(0,-2)) + 50 + 15) + "px";
+
+            //close the other menu
+
+            let optionsMenuWrapper = document.getElementById('options-menu-wrapper');
+
+            optionsMenuWrapper.style.transition = "width 1s ease-in-out, opacity 1s ease-in-out,visibility 1s ease-in-out";
+
+            optionsMenuWrapper.style.visibility = "hidden";
+            optionsMenuWrapper.style.width = "0px";
+            optionsMenuWrapper.style.opacity = "0";
+        }
+        else if(event.target.id == "nav-cell-options" || event.target.id == "nav-icon-options" || event.target.id == "nav-path-options")
+        {
+            const rec = document.getElementById('navbar-wrapper').getBoundingClientRect();
+
+            let optionsMenuWrapper = document.getElementById('options-menu-wrapper');
+
+            optionsMenuWrapper.style.transition = "width 1s ease-in-out, opacity 1s ease-in-out,visibility 1s ease-in-out";
+            optionsMenuWrapper.style.right = rec.left + "px";
+            optionsMenuWrapper.style.visibility = "inherit";
+            optionsMenuWrapper.style.width = (rec.width / 2) + "px";
+            optionsMenuWrapper.style.opacity = ".95";
+
+            const element = document.getElementById('body-wrapper');
+            const computedStyle = window.getComputedStyle(element);
+            const height = computedStyle.getPropertyValue('height');
+            
+            optionsMenuWrapper.style.height = (parseInt(height.slice(0,-2)) + 50 + 15) + "px";
+
+            //close the other menu
+            let listMenuWrapper = document.getElementById('list-menu-wrapper');
+
+            listMenuWrapper.style.transition = "width 1s ease-in-out, opacity 1s ease-in-out,visibility 1s ease-in-out";
+
+            listMenuWrapper.style.visibility = "hidden";
+            listMenuWrapper.style.width = "0px";
+            listMenuWrapper.style.opacity = "0";
+        }
+    }
+
+
+
     function Which_bar(props) 
     {
         const isLoggedIn = props.isLoggedIn;
@@ -90,18 +184,18 @@ export default function Navbar()
         if (isLoggedIn) 
         {
           return(
-            <div className="navbar-wrapper">
-                <div className="nav-cell" title="Lists">
-                    <svg className="nav-icon" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="white" viewBox="0 0 16 16">
-                        <path d="M2 2.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5V3a.5.5 0 0 0-.5-.5zM3 3H2v1h1z"/>
-                        <path d="M5 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5M5.5 7a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1zm0 4a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1z"/>
-                        <path d="M1.5 7a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5zM2 7h1v1H2zm0 3.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm1 .5H2v1h1z"/>
+            <div className="navbar-wrapper" id="navbar-wrapper">
+                <div className="nav-cell" id="nav-cell-lists" title="Lists" onClick={handleClick}>
+                    <svg className="nav-icon" id="nav-icon-lists" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="white" viewBox="0 0 16 16">
+                        <path id="nav-path-lists" d="M2 2.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5V3a.5.5 0 0 0-.5-.5zM3 3H2v1h1z"/>
+                        <path id="nav-path-lists" d="M5 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5M5.5 7a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1zm0 4a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1z"/>
+                        <path id="nav-path-lists" d="M1.5 7a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5zM2 7h1v1H2zm0 3.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm1 .5H2v1h1z"/>
                     </svg>
                 </div>
                 <div className="nav-cell title-cell"><span id="span-title-id">Shopping</span></div>
-                <div className="nav-cell" title="Options">
-                    <svg className="nav-icon" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="white"  viewBox="0 0 16 16">
-                        <path d="M10.5 1a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V4H1.5a.5.5 0 0 1 0-1H10V1.5a.5.5 0 0 1 .5-.5M12 3.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5m-6.5 2A.5.5 0 0 1 6 6v1.5h8.5a.5.5 0 0 1 0 1H6V10a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5M1 8a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2A.5.5 0 0 1 1 8m9.5 2a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V13H1.5a.5.5 0 0 1 0-1H10v-1.5a.5.5 0 0 1 .5-.5m1.5 2.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5"/>
+                <div className="nav-cell" id="nav-cell-options" title="Options" onClick={handleClick}>
+                    <svg className="nav-icon" id="nav-icon-options" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="white"  viewBox="0 0 16 16">
+                        <path id="nav-path-options" d="M10.5 1a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V4H1.5a.5.5 0 0 1 0-1H10V1.5a.5.5 0 0 1 .5-.5M12 3.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5m-6.5 2A.5.5 0 0 1 6 6v1.5h8.5a.5.5 0 0 1 0 1H6V10a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5M1 8a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2A.5.5 0 0 1 1 8m9.5 2a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V13H1.5a.5.5 0 0 1 0-1H10v-1.5a.5.5 0 0 1 .5-.5m1.5 2.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5"/>
                     </svg>
                 </div>
             </div>

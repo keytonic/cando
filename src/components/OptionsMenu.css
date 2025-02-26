@@ -63,3 +63,8 @@
 {
     width: 50px;
 }
+
+#options-icon-close
+{
+    cursor: pointer;
+}

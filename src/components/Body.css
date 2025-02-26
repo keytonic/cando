@@ -166,3 +166,9 @@
 
     fill: #EF6461 !important;
 }
+
+#check-icon,
+#trash-icon
+{
+    cursor: pointer;
+}

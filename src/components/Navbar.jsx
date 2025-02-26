@@ -94,11 +94,11 @@ export default function Navbar()
 
         listMenuWrapper.style.transition = "unset";
         listMenuWrapper.style.left = rec.left + "px";
-        listMenuWrapper.style.width = (rec.width / 2) + "px";
+        listMenuWrapper.style.width = ((rec.width / 4) * 3) + "px";
 
         optionsMenuWrapper.style.transition = "unset";
         optionsMenuWrapper.style.right = rec.left + "px";
-        optionsMenuWrapper.style.width = (rec.width / 2) + "px";
+        optionsMenuWrapper.style.width = ((rec.width / 4) * 3) + "px";
 
         const element = document.getElementById('body-wrapper');
         const computedStyle = window.getComputedStyle(element);

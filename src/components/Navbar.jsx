@@ -115,10 +115,10 @@ export default function Navbar()
 
             let listMenuWrapper = document.getElementById('list-menu-wrapper');
 
-            listMenuWrapper.style.transition = "width 1s ease-in-out, opacity 1s ease-in-out,visibility 1s ease-in-out";
+            listMenuWrapper.style.transition = "width 0.5s ease-in-out, opacity 0.5s ease-in-out,visibility 0.5s ease-in-out";
             listMenuWrapper.style.left = rec.left + "px";
             listMenuWrapper.style.visibility = "inherit";
-            listMenuWrapper.style.width = (rec.width / 2) + "px";
+            listMenuWrapper.style.width = ((rec.width / 4) * 3) + "px";
             listMenuWrapper.style.opacity = ".95";
 
             const element = document.getElementById('body-wrapper');
@@ -131,7 +131,7 @@ export default function Navbar()
 
             let optionsMenuWrapper = document.getElementById('options-menu-wrapper');
 
-            optionsMenuWrapper.style.transition = "width 1s ease-in-out, opacity 1s ease-in-out,visibility 1s ease-in-out";
+            optionsMenuWrapper.style.transition = "width 0.5s ease-in-out, opacity 0.5s ease-in-out,visibility 0.5s ease-in-out";
 
             optionsMenuWrapper.style.visibility = "hidden";
             optionsMenuWrapper.style.width = "0px";
@@ -143,10 +143,10 @@ export default function Navbar()
 
             let optionsMenuWrapper = document.getElementById('options-menu-wrapper');
 
-            optionsMenuWrapper.style.transition = "width 1s ease-in-out, opacity 1s ease-in-out,visibility 1s ease-in-out";
+            optionsMenuWrapper.style.transition = "width 0.5s ease-in-out, opacity 0.5s ease-in-out,visibility 0.5s ease-in-out";
             optionsMenuWrapper.style.right = rec.left + "px";
             optionsMenuWrapper.style.visibility = "inherit";
-            optionsMenuWrapper.style.width = (rec.width / 2) + "px";
+            optionsMenuWrapper.style.width = ((rec.width / 4) * 3) + "px";
             optionsMenuWrapper.style.opacity = ".95";
 
             const element = document.getElementById('body-wrapper');
@@ -158,7 +158,7 @@ export default function Navbar()
             //close the other menu
             let listMenuWrapper = document.getElementById('list-menu-wrapper');
 
-            listMenuWrapper.style.transition = "width 1s ease-in-out, opacity 1s ease-in-out,visibility 1s ease-in-out";
+            listMenuWrapper.style.transition = "width 0.5s ease-in-out, opacity 0.5s ease-in-out,visibility 0.5s ease-in-out";
 
             listMenuWrapper.style.visibility = "hidden";
             listMenuWrapper.style.width = "0px";

@@ -9,7 +9,7 @@
     width: 0;
     height: 0;
     z-index: 9999;
-    transition: width 1s ease-in-out, opacity 1s ease-in-out,visibility 1s ease-in-out;
+    transition: width 0.5 ease-in-out, opacity 0.5s ease-in-out,visibility 0.5s ease-in-out;
     opacity: 0;
     visibility: hidden;
 

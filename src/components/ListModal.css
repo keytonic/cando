@@ -1,0 +1,147 @@
+#list-modal-wrapper
+{
+    transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
+    z-index: 99999;
+    visibility: hidden;
+    opacity: 0;
+}
+
+.modal-wrapper
+{
+    
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: hsl(0deg 0% 0% / 75%);
+    
+}
+
+.modal-window
+{
+    transition: all 0.5s ease-in-out;
+    width: calc(100vw / 2);
+    height: calc(100vh / 2);
+    min-width: 300px;
+    min-height: 300px;
+    xbackground-color: white;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    background-image: linear-gradient(180deg, #88A5BF, #F4F0F0);
+}
+
+.modal-header
+{
+    height: 50px;
+    background-color: #4d708e;
+    overflow: hidden;
+    border-radius: 4px 4px 0 0;
+
+    
+    
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+    margin-bottom: 15px;
+}
+
+.modal-title
+{
+    font-size: 24px;
+    font-weight: 300;
+    white-space: nowrap;
+    color: white;
+}
+
+
+.modal-body
+{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.modal-footer
+{
+    height: 50px;
+    xbackground-color: #4d708e;
+    overflow: hidden;
+    border-radius: 0 0 4px 4px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.modal-nav
+{
+    width: 50px;
+    min-width: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#modal-close-icon
+{
+    padding: 10px;
+    cursor: pointer;
+}
+
+#modal-close-icon:hover,
+.modal-nav:hover > svg
+{
+    fill: #EF6461 !important;
+}
+
+#modal-save-button
+{
+    margin: 0px;
+    margin-bottom: 15px;
+    margin-right: 15px;
+}
+
+#modal-delete-button
+{
+    background-color: #EF6461;
+    border: 0;
+    margin: 0px;
+    margin-bottom: 15px;
+    margin-left: 15px;
+}
+
+#modal-delete-button:hover
+{
+    background-color: red;;
+}
+
+.option-row
+{
+    height: 50px;
+    width: calc(100% - 30px);
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: white;
+    margin-bottom: 2px;
+}
+
+.modal-text
+{
+    width: 100%;
+    margin-right: 10px;
+    border-radius: 0;
+}
+
+#list-modal-title
+{
+    margin-left: 15px;
+    margin-right: 15px;
+}

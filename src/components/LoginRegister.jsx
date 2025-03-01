@@ -1,15 +1,12 @@
-import { useRef,useState, useEffect } from 'react'
+import { useRef } from 'react'
 import bcrypt from 'bcryptjs'
 import {db} from "../Firebase"
-import { collection, addDoc, getDocs, getDoc, query, where } from "firebase/firestore";
+import { collection, addDoc, getDocs, query, where } from "firebase/firestore";
 import { Link , useNavigate} from "react-router-dom";
-
-import Navbar from "./Navbar";
 import './LoginRegister.css'
 import StarCheck from '../assets/star-check.svg'
 import CandoTextLarge from '../assets/candotext-large.png'
-import {getCookie, deleteCookie, setCookie} from "../Tools"
-
+import {setCookie} from "../Tools"
 
 function handleClick(event)
 {
@@ -23,7 +20,6 @@ function handleClick(event)
     document.getElementById(target.id + "-label").style.top = "2px";
     document.getElementById(target.id + "-label").style.left = "3px";
 }
-
 
 function handleBlur(event)
 {
@@ -73,7 +69,7 @@ export function Register()
             document.getElementById("alert_register").innerText = "Password too short.";
             return false;
         }
-        else if(username.value.length < 5)
+        else if(username.value.length < 2)
         {
             username.style.backgroundColor = "#ef6461";
             username.style.color = "black";
@@ -106,18 +102,14 @@ export function Register()
         if(data != null)
         {
             document.getElementById("alert_register").innerText = "Email already registered.";
-            console.log("Email already registered.");
+            //console.log("Email already registered.");
             return;
         }
 
-        const docRef = await addDoc(collection(db, "users"), { username: username, email: email, password: hashedPassword });
-        console.log(`New user added email: ${email} username: ${username} id: ${docRef.id}`);
+        const docRef = await addDoc(collection(db, "users"), { username: username, email: email, password: hashedPassword, lists: ["Default List"] });
+        //console.log(`New user added email: ${email} username: ${username} id: ${docRef.id}`);
         navigate('/login');
-        window.location.reload();
-        //location.reload();
-        //window.location.href = "/";
     }
-
 
     return ( 
         
@@ -133,11 +125,11 @@ export function Register()
                     <header className='App-header'>
                         <form id="form_register" name="form_register" onSubmit={handleForm}>
                             <label htmlFor="form-username" className="opacity0" id="form-username-label">Username:</label>
-                            <input id="form-username"  name="username"  ref={usernameRef} type='text' placeholder-slug="Username" placeholder='Username' required autoComplete="on" onClick={handleClick} onBlur={handleBlur} />  
+                            <input id="form-username"  name="username"  ref={usernameRef} type='text' placeholder-slug="Username" placeholder='Username' required autoComplete={String(Math.random()).slice(2)} onClick={handleClick} onBlur={handleBlur} />  
                             <label htmlFor="form-email" className="opacity0" id="form-email-label">Email:</label>
-                            <input id="form-email"  name="email"  ref={emailRef} type='email' placeholder-slug="Email" placeholder='Email' required autoComplete="on" onClick={handleClick} onBlur={handleBlur} />
+                            <input id="form-email"  name="email"  ref={emailRef} type='email' placeholder-slug="Email" placeholder='Email' required autoComplete={String(Math.random()).slice(2)} onClick={handleClick} onBlur={handleBlur} />
                             <label htmlFor="form-password" className="opacity0" id="form-password-label">Password:</label>
-                            <input id="form-password" name="password" ref={passwordRef} type='password' placeholder-slug="Password" placeholder='Password' required autoComplete="on"  onClick={handleClick} onBlur={handleBlur} />
+                            <input id="form-password" name="password" ref={passwordRef} type='password' placeholder-slug="Password" placeholder='Password' required autoComplete={String(Math.random()).slice(2)}  onClick={handleClick} onBlur={handleBlur} />
                             <span id="alert_register"></span>
                             <button id="register_submit" type="submit">Register</button>
                         </form>
@@ -146,11 +138,7 @@ export function Register()
             </div>
         </div>
     );
-
-
-
 }
-
 
 export function Login() 
 {
@@ -181,7 +169,6 @@ export function Login()
             document.getElementById("alert_login").innerText = "Password too short.";
             return false;
         }
-
         return true;
     }
 
@@ -194,56 +181,38 @@ export function Login()
         const email = emailRef.current.value;
         const password = passwordRef.current.value;
         let id = "";
-        
 
         const q = query(collection(db, "users"), where("email", "==", email));
         const querySnapshot = await getDocs(q);
 
-       
-
         let data = null;
         querySnapshot.forEach((doc) => {
-            //console.log(doc.id, " => ", doc.data());
             data = doc.data();
             id = doc.id;
         });
 
         if(data == null)
         {
-            console.log("Email account not found.");
+            //console.log("Email account not found.");
             document.getElementById("alert_login").innerText = "Email account not found.";
             return;
         }
 
-
         let pass_good = bcrypt.compareSync(password, data.password);
-        //console.log(data.password);
-        //console.log(pass_good);
 
         if(pass_good == true)
         {
             setCookie("email", email, 30);
             setCookie("userid", id, 30);
-            //window.location.href = "/";
-            navigate('/');
-            //navigate(0);
-            window.location.reload();
-            //window.location.href = "/";
-
-            //navigate(0);
-
+            navigate('/home');
         }
         else
         {
-            console.log("Password incorrect.");
+            //console.log("Password incorrect.");
             document.getElementById("alert_login").innerText = "Password incorrect.";
             return;
         }
-
     }
-
-
-
 
     return ( 
         <div id="login-wrapper">
@@ -258,9 +227,9 @@ export function Login()
                     <header className='App-header'>
                         <form id="form_login" name="form_login" onSubmit={handleForm}>
                             <label htmlFor="form-email" className="opacity0" id="form-email-label">Email:</label>
-                            <input id="form-email"  name="email"  ref={emailRef} type='email' placeholder-slug="Email" placeholder='Email' required autoComplete="on" onClick={handleClick} onBlur={handleBlur} />
+                            <input id="form-email"  name="email"  ref={emailRef} type='email' placeholder-slug="Email" placeholder='Email' required autoComplete={String(Math.random()).slice(2)} onClick={handleClick} onBlur={handleBlur} />
                             <label htmlFor="form-password" className="opacity0" id="form-password-label">Password:</label>
-                            <input id="form-password" name="password" ref={passwordRef} type='password' placeholder-slug="Password" placeholder='Password' required autoComplete="on"  onClick={handleClick} onBlur={handleBlur} />
+                            <input id="form-password" name="password" ref={passwordRef} type='password' placeholder-slug="Password" placeholder='Password' required autoComplete={String(Math.random()).slice(2)}  onClick={handleClick} onBlur={handleBlur} />
                             <span id="alert_login"></span>
                             <button id="login_submit" type="submit">Login </button>
                         </form>
@@ -271,12 +240,10 @@ export function Login()
     );
 }
 
-
 export default function LoginRegister(props)
 {
     return (
         <>
-            <Navbar />
             <div className="login-register-wrapper">
                 {props.action == "login" ? <Login /> : <Register />}
             </div>

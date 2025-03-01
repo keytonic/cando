@@ -1,15 +1,15 @@
 
-
 #list-menu-wrapper
 {
-    background-color: #4d708e;
+    background-color: #88A5BF;
+    background-image: linear-gradient(180deg, #88A5BF, #F4F0F0);
     position: fixed;
     top: 0;
     left: 0;
     width: 0;
-    height: 0;
+    height: auto;
     z-index: 9999;
-    transition: width 0.5 ease-in-out, opacity 0.5s ease-in-out,visibility 0.5s ease-in-out;
+    transition: width 0.5s ease-in-out, opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
     opacity: 0;
     visibility: hidden;
 
@@ -21,22 +21,26 @@
     max-height: 100vh;
 
     box-shadow: 4px 4px 7px 3px rgb(0 0 0 / 22%);
+    padding-bottom: 15px;
+
+    border-radius: 0 0 4px 4px;
 }
 
 #list-menu-nav-bar
 {
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    height: 50px;
+    min-height: 50px;
     width: 100%;
+    margin-bottom: 15px;
+    background-color: #4d708e;
+    justify-content: space-between;
 }
 
 
 
 #list-menu-title-cell
 {
-    width: 100%;
+    xwidth: 100%;
 }
 
 #list-icon-close:hover,
@@ -49,7 +53,7 @@
 .list-menu-nav-cell
 {
     height: 100%;
-    width: 100%;
+    xwidth: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -57,14 +61,131 @@
     color: white;
     white-space: nowrap;
     overflow: hidden;
+
+
+    font-size: 24px !important;
+    font-weight: 300;
+    xpadding-left: 5px;
+    white-space: nowrap;
+
 }
 
 #list-menu-close-cell
 {
     width: 50px;
+    max-width: 50px;
 }
 
 #list-icon-close
 {
     cursor: pointer;
+}
+
+#list-menu-list-wrapper
+{
+    height: 100%;
+    width: calc(100% - 30px);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.list-menu-item-card
+{
+    height: auto;
+    min-height: 50px;
+    background-color: white;
+    margin-bottom: 2px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#list-name
+{
+    padding: 10px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    text-align: justify;
+}
+
+#list-delete,
+#list-rename
+{
+    display: flex;
+    width: 50px;
+    height: 100%;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    max-width: 50px;
+}
+
+#list-menu-add-cell {
+    width: 50px;
+    cursor: pointer;
+    max-width: 50px;
+}
+
+#list-menu-add-icon:hover,
+#list-menu-add-cell:hover > svg
+{
+
+    fill: #EF6461 !important;
+}
+
+#rename-icon:hover,
+#list-rename:hover > svg
+{
+
+    fill: #EF6461 !important;
+    
+}
+
+.list-menu-item-card:hover
+{
+    background-color: #e2f2ff;
+}
+
+#list-select
+{
+    display: flex;
+    width: 50px;
+    height: 100%;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    max-width: 50px;
+}
+
+#trash-icon,
+#edit-icon,
+#select-icon,
+#list-icon-close,
+#list-menu-add-icon
+{
+    padding: 10px;
+}
+
+#select-icon:hover,
+#list-select:hover > svg
+{
+
+    fill: #EF6461 !important;
+    
+}
+
+#rename-icon,
+#select-icon
+{
+    padding: 10px;
+    cursor: pointer;
+}
+
+#list-delete,
+#list-rename
+{
+    display:none;
 }

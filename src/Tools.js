@@ -1,14 +1,14 @@
 
 
 
-
-export function setCookie(name, value, days) 
+/*
+export function setCookie(name, value, days = 365) 
 {
     const date = new Date();
     date.setTime(date.getTime() + (days*24*60*60*1000));
     const expires = "expires=" + date.toUTCString();
     document.cookie = name + "=" + value + ";" + expires + ";path=/";
-    console.log(`cookie set, name: ${name}, value: ${value}, days: ${days}`);
+    //console.log(`cookie set, name: ${name}, value: ${value}, days: ${days}`);
 }
 
 export function getCookie(name) 
@@ -28,4 +28,17 @@ export function getCookie(name)
 export function deleteCookie(name) 
 {
     document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+}
+*/
+export function setCookie(name, value, days = 365)
+{
+    return localStorage.setItem(name, value);
+}
+export function getCookie(name)
+{
+    return localStorage.getItem(name);
+}
+export function deleteCookie(name) 
+{
+    return localStorage.removeItem(name);
 }

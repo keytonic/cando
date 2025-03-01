@@ -1,11 +1,7 @@
-
-import { useState, useEffect } from 'react'
-import './App.css'
+import { Routes, Route, MemoryRouter } from "react-router-dom";
 import LoginRegister from "./components/LoginRegister"
-
 import Home from "./components/Home"
-import { BrowserRouter, Routes, Route, Link, MemoryRouter } from "react-router-dom";
-
+import './App.css'
 
 function App() {
     return (

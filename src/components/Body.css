@@ -26,6 +26,7 @@
     justify-content: center;
     align-items: center;
     width: 50px;
+    max-width: 50px;
 }
 
 #add-text-cell
@@ -86,7 +87,7 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    
+    max-width: 50px;
 }
 
 .trash-cell
@@ -97,6 +98,7 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    max-width: 50px;
 }
 .trash-cell svg {
     padding: 10px;
@@ -168,7 +170,37 @@
 }
 
 #check-icon,
-#trash-icon
+#trash-icon,
+#edit-cell,
+#edit-icon
 {
     cursor: pointer;
+}
+
+.list-item-card:hover
+{
+    background-color: #e2f2ff;
+}
+
+#nav-icon-options,
+#nav-icon-lists
+{
+    padding: 10px;
+}
+
+#edit-cell
+{
+    display: flex;
+    width: 50px;
+    height: 100%;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    max-width: 50px;
+}
+
+#edit-icon:hover,
+#edit-cell:hover > svg
+{
+    fill: #EF6461 !important;
 }

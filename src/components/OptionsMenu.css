@@ -1,12 +1,13 @@
 
 #options-menu-wrapper
 {
-    background-color: #4d708e;
+    background-color: #88A5BF;
+    background-image: linear-gradient(180deg, #88A5BF, #F4F0F0);
     position: fixed;
     top: 0;
     right: 0;
     width: 0;
-    height: 200px;
+    height: auto;
     z-index: 9999;
     transition: width 0.5s ease-in-out, opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
     opacity: 0;
@@ -20,22 +21,18 @@
     max-height: 100vh;
 
     box-shadow: -4px 4px 7px 3px rgb(0 0 0 / 22%);
+    padding-bottom: 15px;
+
+    border-radius: 0 0 4px 4px;
 }
 
-#options-menu-nav-bar
-{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    height: 50px;
-    width: 100%;
-}
+
 
 
 
 #options-menu-title-cell
 {
-    width: 100%;
+    xwidth: 100%;
 }
 
 #options-icon-close:hover,
@@ -48,7 +45,7 @@
 .options-menu-nav-cell
 {
     height: 100%;
-    width: 100%;
+    xwidth: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -67,4 +64,61 @@
 #options-icon-close
 {
     cursor: pointer;
+}
+
+.about-cell
+{
+    width: 50px;
+}
+
+#options-icon-close,
+#about-icon
+{
+    padding: 10px;
+}
+
+#about-icon:hover,
+#about-cell:hover > svg
+{
+
+    fill: #EF6461 !important;
+}
+
+#options-menu-nav-bar
+{
+    height: 50px;
+    display: flex;
+    min-height: 50px;
+    width: 100%;
+    margin-bottom: 15px;
+    background-color: #4d708e;
+    justify-content: space-between;
+}
+
+#options-menu-list-wrapper {
+    height: 100%;
+    width: calc(100% - 30px);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.options-menu-item-card {
+    height: auto;
+    min-height: 50px;
+    background-color: white;
+    margin-bottom: 2px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#options-name
+{
+    padding: 10px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    text-align: justify;
 }

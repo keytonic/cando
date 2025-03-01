@@ -270,7 +270,7 @@ export function Body()
                 try {
                     const userid = getCookie("userid");
                     let currentList = getCookie("list");
-                    let showAll = getCookie("showAll");
+                    let showAll = getCookie("showAll") == null ? "false" : getCookie("showAll");
 
                     if(showAll == null) showAll = "true";
 

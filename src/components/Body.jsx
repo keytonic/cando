@@ -1,15 +1,17 @@
 import { useState, useEffect, useRef } from "react";
 import {useNavigate} from "react-router-dom";
-import { collection, addDoc, getDocs, getDoc, query, where ,updateDoc,doc, orderBy, Timestamp,deleteDoc } from "firebase/firestore";
+import { collection, addDoc, getDocs, getDoc, query, where ,updateDoc,doc, orderBy } from "firebase/firestore";
 import {db} from "../Firebase"
 import ListMenu from "../components/ListMenu"
 import OptionsMenu from "../components/OptionsMenu"
 import ListModal from "../components/ListModal"
 import TaskModal from "../components/TaskModal"
-import Front from "./Front";
+import AddModal from "../components/AddModal"
+import AboutModal from "../components/AboutModal"
+
 
 import './Body.css'
-import {getCookie, deleteCookie} from "../Tools"
+import {getCookie} from "../Tools"
 
 export function Body() 
 {
@@ -17,12 +19,9 @@ export function Body()
     const isInitialRender = useRef(true);
     const navigate = useNavigate();
 
-    let optionsOpen = false;
+    //let optionsOpen = false;
 
-    useEffect(() => {
-        //console.log("Body render");
-    });
-
+    //useEffect(() => { console.log("body render");});
 
     useEffect(() => {
         
@@ -42,44 +41,44 @@ export function Body()
             isInitialRender.current = false; 
             return; 
         }
-        const fetchData = async () => 
+
+        try
         {
-            const userid = getCookie("userid");
-
-            if(userid == null) return;
-
-            let currentList = getCookie("list");
-
-            if(currentList == null)
-            { 
-                currentList = "";
-
-                //setCookie("list", currentList);
-
-/*
-                const userid = getCookie("userid");
-                if(userid != null)
-                {
-                    await updateDoc(doc(db, "users", userid), { lists: ["Default list"] });
-                }
-*/
-            }
-
-            const currentDate = new Date();
-            if(taskData != "" && taskData != 0)
+            const fetchData = async () => 
             {
-                await addDoc(collection(db, "tasks"), 
+                const userid = getCookie("userid");
+
+                if(userid == null) return;
+
+                let currentList = getCookie("list");
+
+                if(currentList == null)
                 { 
-                    checked: "false", 
-                    list: currentList, 
-                    text: taskData, 
-                    userid: userid,
-                    created: currentDate 
-                });
-            }
-        };
-        fetchData();
-        setTaskData("");
+                    currentList = "";
+                }
+
+                const currentDate = new Date();
+                if(taskData != "" && taskData != 0)
+                {
+                    await addDoc(collection(db, "tasks"), 
+                    { 
+                        checked: "false", 
+                        list: currentList, 
+                        text: taskData, 
+                        userid: userid,
+                        details: "",
+                        created: currentDate 
+                    });
+                }
+            };
+            fetchData();
+            setTaskData("");
+        } 
+        catch (err) 
+        {
+            //console.log(err);
+        } 
+
         
     }, [taskData]);  //Runs on the first render AND any time any dependency value changes
 
@@ -144,8 +143,8 @@ export function Body()
     
         const isInitialRender2 = useRef(true);
     
-        useEffect(() => {
- 
+        useEffect(() => 
+        {
             //prevent running effect on first render 
             //i only want it to run when taskUpdate is updated
             if (isInitialRender2.current) 
@@ -154,24 +153,32 @@ export function Body()
                 return; 
             }
     
-            const fetchData = async () => {
-              
-                if(taskUpdate != "")
+            try
+            {
+                const fetchData = async () => 
                 {
-                    await updateDoc(doc(db, "tasks", taskUpdate.taskId), { checked: taskUpdate.checked }).then(() => {
-                        
-                        let newClass = taskUpdate.checked == "true" ? "checked" : "unchecked";
-                        let disp = taskUpdate.checked == "true" ? "unset" : "none";
-    
-                        let svg = document.getElementById(taskUpdate.taskId).querySelector("svg");
-    
-                        svg.setAttribute("class",newClass);
-                        svg.children[1].style.display = disp;
-                    });
-                }
-            };
-            fetchData();
-            setTaskUpdate("");
+                
+                    if(taskUpdate != "")
+                    {
+                        await updateDoc(doc(db, "tasks", taskUpdate.taskId), { checked: taskUpdate.checked }).then(() => {
+                            
+                            let newClass = taskUpdate.checked == "true" ? "checked" : "unchecked";
+                            let disp = taskUpdate.checked == "true" ? "unset" : "none";
+        
+                            let svg = document.getElementById(taskUpdate.taskId).querySelector("svg");
+        
+                            svg.setAttribute("class",newClass);
+                            svg.children[1].style.display = disp;
+                        });
+                    }
+                };
+                fetchData();
+                setTaskUpdate("");
+            } 
+            catch (err) 
+            {
+                //console.log(err);
+            } 
 
         }, [taskUpdate]);  //Runs on the first render AND any time any dependency value changes
     
@@ -183,15 +190,26 @@ export function Body()
                 //closest searches up the DOM tree
                 const taskId = event.target.closest(".list-item-card").id;
                 let checked = document.getElementById(taskId).querySelector("svg").getAttribute("class") == "unchecked" ? "true" : "false";
+                let showAll = getCookie("showAll") == null ? "false" : getCookie("showAll");
     
-                let showTrash = checked == "true" ? "inherit" : "none";
-                document.getElementById(taskId).querySelector(".trash-cell").style.display = showTrash;
+                //let showTrash = checked == "true" ? "inherit" : "none";
+                //document.getElementById(taskId).querySelector(".trash-cell").style.display = showTrash;
     
                 setTaskUpdate({taskId: taskId, checked: checked });
                 //alert(`taskId: ${taskId}, checked:${checked}`);
+
+
+
+
+                if( showAll == "false" && checked == "true")
+                {
+                    event.target.closest(".list-item-card").style.display = "none";
+                  
+                }
+
             }
             else if( event.target.id == "trash-cell" || event.target.id == "trash-icon" || event.target.id == "path-trash")
-            {
+            {/*
                 const taskId = event.target.closest(".list-item-card").id;
                 const text = document.getElementById(taskId).querySelector(".task-text").innerText;
     
@@ -199,19 +217,113 @@ export function Body()
     
                 if (confirm(prompt) == true) 
                 {
-                    //do it
-                    const fetchData = async () => {
-                        await deleteDoc(doc(db, "tasks", taskId));
-                    };
-                    fetchData();
-                    //forcing body to rerender by changing value of taskData to zero, 
-                    //it wont do anything in the useEffect but it will trigger a rerender
-                    setTaskData(0);
-                } 
+                    try
+                    {
+                        //do it
+                        const fetchData = async () => {
+                            await deleteDoc(doc(db, "tasks", taskId));
+                        };
+                        fetchData();
+                        //forcing body to rerender by changing value of taskData to zero, 
+                        //it wont do anything in the useEffect but it will trigger a rerender
+                        setTaskData(0);
+                    } 
+                    catch (err) 
+                    {
+                        console.log(err);
+                    } 
+                } */
             }
             else if(event.target.id == "edit-cell" || event.target.id == "edit-icon" || event.target.id == "edit-path")
             {
-                alert("edit");
+                try
+                {
+                    //get task id
+                    const taskId = event.target.closest(".list-item-card").id;
+
+                    //query db and populate modal with data
+                    const fetchData = async () => 
+                    {
+                        const email = getCookie("email");
+
+                        if(email != null) 
+                        {
+                            //need to get the lists and build a select box before we do anything else
+                            const q = query(collection(db, "users"), where("email", "==", email));
+                            const querySnapshot = await getDocs(q);
+
+                            let oldLists = [];
+                
+                            if(querySnapshot.empty === false)
+                            {
+                                querySnapshot.forEach((doc) => {
+                                    oldLists = doc.data().lists;
+                                });
+                            }
+
+                            //getting all of the list names annd building out the options for the select box
+                            let select = document.getElementById("task-modal-list-text");
+
+
+                            if(oldLists.length == 0)
+                            {
+                                select.closest(".option-row").style.display = "none";
+                            }
+                            else
+                            {
+                                select.closest(".option-row").style.display = "flex";
+                                for (let i = 0; i < oldLists.length; i++) 
+                                {
+                                    const option = document.createElement('option');
+    
+                                    option.value = oldLists[i];
+                                    option.text = oldLists[i];
+    
+                                    select.add(option);
+                                }
+                            }
+
+
+
+                        }
+                        
+                        //looking up the individual task and getting the specifics
+                        const snap = await getDoc(doc(db, 'tasks', taskId)).then((snap) => 
+                        {
+                            if (snap.exists()) 
+                            {
+                                //task id
+                                document.getElementById("task-modal-id-hidden").value = snap.id;
+        
+                                //task name
+                                document.getElementById("task-modal-title-text").value = snap.data().text;
+                                document.getElementById("task-modal-title-hidden").value = snap.data().text;
+        
+                                //the list it's in if there is one or ""
+                                document.getElementById("task-modal-list-text").value = snap.data().list;
+                                document.getElementById("task-modal-list-hidden").value = snap.data().list;
+        
+                                if(snap.data().details)//not all tasks have this field yet.
+                                {
+                                    //task details
+                                    document.getElementById("task-modal-details-text").value = snap.data().details;
+                                    document.getElementById("task-modal-details-hidden").value = snap.data().details;
+                                }
+                            }
+                        });
+                    };
+                    fetchData();
+
+                    //the the data is in place, lets show it to them
+                    let modal = document.getElementById("task-modal-wrapper");
+                    document.getElementById("task-modal-open").value = true;
+                    modal.style.opacity = "1";
+                    modal.style.visibility = "visible";
+                } 
+                catch (err) 
+                {
+                    //console.log(err);
+                } 
             }
 
             else
@@ -242,7 +354,7 @@ export function Body()
                 <div className="text-cell">
                     <span className="task-text" id="task-text">{props.text}</span>
                 </div>
-                <div className="trash-cell" id="trash-cell" style={{display: props.checked == "true" ? "inherit" : "none"}} onClick={handleClick} title="Delete">
+                <div className="trash-cell" id="trash-cell" style={{/*display: props.checked == "true" ? "inherit" : "none"*/}} onClick={handleClick} title="Delete">
                     <svg id="trash-icon" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="grey" viewBox="0 0 16 16">
                         <path id="path-trash" d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
                         <path id="path-trash" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
@@ -296,7 +408,7 @@ export function Body()
 
                     setData(list);
                 } catch (err) {
-                    console.log(err);
+                    //console.log(err);
                 } 
             };
             fetchData();
@@ -306,14 +418,28 @@ export function Body()
     }
 
     //keep at this scope
-    const [random, setRandom] = useState("");
+    //const [random, setRandom] = useState("");
 
     function ToDoList(props)
     {
+        const [state, setState] = useState(0);
+
+        const forceRerender = () => 
+        {
+            setState(state + 1);
+        };
+
+        useEffect(() => 
+        {
+            //console.log(state);
+        });
+
         return(
             <>
+                <button style={{display:"none"}} onClick={forceRerender} id="re-render-button">Force Re-render</button>
+
                 <div id="todo-list-wrapper">
-                    <ToDoListItems blah={random}/>
+                    <ToDoListItems blah={state}/>
                 </div>
             </>
         );
@@ -371,7 +497,7 @@ export function Body()
 
             optionsMenuWrapper.style.transition = "width 0.5s ease-in-out, opacity 0.5s ease-in-out,visibility 0.5s ease-in-out";
 
-            optionsOpen = false;
+            //optionsOpen = false;
 
             optionsMenuWrapper.style.visibility = "hidden";
             optionsMenuWrapper.style.width = "0px";
@@ -404,7 +530,7 @@ export function Body()
 
             if(optionsMenuWrapper == null ) return;
 
-            optionsOpen = true;
+            //optionsOpen = true;
 
             optionsMenuWrapper.style.transition = "width 0.5s ease-in-out, opacity 0.5s ease-in-out,visibility 0.5s ease-in-out";
             optionsMenuWrapper.style.right = rec.left + "px";
@@ -498,21 +624,23 @@ export function Body()
                 event.target.setAttribute("placeholder","Add a to-do...");
                 document.getElementById("add-text-input").value = "";
             }
+            /*
             else
             {
                 //handling a simulated keystroke passing null to force rerender 
                 //when new list selected to update the list name on main page
                 //setTaskData(0);
-                setRandom(Math.random());
+                //setRandom(Math.random());
                 event.target.setAttribute("placeholder","Add a to-do...");
                 document.getElementById("add-text-input").value = "";
-            }
+            }*/
         }
     }
 
     if(getCookie("userid") == null)
     {
-        return (<Front />);
+        //navigate('/home', { replace: true });
+        //return (<>ass</>);
     }
     
     return (
@@ -554,6 +682,8 @@ export function Body()
             <OptionsMenu />
             <ListModal />
             <TaskModal />
+            <AddModal />
+            <AboutModal />
         </>
     );
 }

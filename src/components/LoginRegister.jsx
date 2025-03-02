@@ -45,6 +45,8 @@ export function Register()
     const usernameRef = useRef();
     const passwordRef = useRef();
 
+    //useEffect(() => { console.log("register render");});
+
     function validateForm() 
     {
         let email = document.forms["form_register"]["email"];
@@ -106,7 +108,7 @@ export function Register()
             return;
         }
 
-        const docRef = await addDoc(collection(db, "users"), { username: username, email: email, password: hashedPassword, lists: ["Default List"] });
+        const docRef = await addDoc(collection(db, "users"), { username: username, email: email, password: hashedPassword, lists: [] });
         //console.log(`New user added email: ${email} username: ${username} id: ${docRef.id}`);
         navigate('/login');
     }

@@ -9,9 +9,9 @@ function App() {
             <MemoryRouter >
                 <Routes>
                     <Route path="/" element={ <Home /> } />
-                    <Route path="home" element={ <Home /> } />
-                    <Route path="register" element={<LoginRegister action="register" />} />
-                    <Route path="login" element={<LoginRegister action="login"/>} />
+                    <Route path="/home" element={ <Home /> } />
+                    <Route path="/register" element={<LoginRegister action="register" />} />
+                    <Route path="/login" element={<LoginRegister action="login"/>} />
                     <Route path="*" element={ <Home /> } />
                 </Routes>
             </MemoryRouter>

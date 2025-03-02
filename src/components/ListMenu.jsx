@@ -1,15 +1,12 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import './ListMenu.css';
 import {getCookie, setCookie, deleteCookie} from "../Tools";
 import {db} from "../Firebase"
-import { collection, addDoc, getDocs, query, where, documentId, updateDoc, doc } from "firebase/firestore";
-
+import { collection,  getDocs, query, where,   doc ,getDoc} from "firebase/firestore";
 
 export default function ListMenu(props)
 {
-    useEffect(() => {
-        //console.log("list menu render");
-    });
+    //useEffect(() => {console.log("list menu render");});
 
     function handleClick(event)
     {
@@ -26,64 +23,43 @@ export default function ListMenu(props)
             document.getElementById("body-wrapper").style.pointerEvents = "auto";
             document.getElementById("body").style.position = "inherit";
         }
-        else if(event.target.id == "list-delete" || event.target.id == "trash-icon" || event.target.id == "path-trash")
-        {
-            //get name of list the user is trying to delete
-            //closest searches up the DOM tree
-            //querySelector searches down the DOM tree
-            const listItem = event.target.closest(".list-menu-item-card");
-            const listText = listItem.querySelector("#list-name").innerText;
-
-            //make sure thier sure
-            if (confirm(`Delete list: ${listText}?`) != true) 
-            {
-                return;//or bail
-            } 
-
-            const fetchData = async () => 
-            {
-                try 
-                {
-                    const email = getCookie("email");
-
-                    if(email == null) return;
-
-                    const userid = getCookie("userid");
-    
-                    if(userid == null) return;
-
-                    const q = query(collection(db, "users"), where("email", "==", email));
-                    const querySnapshot = await getDocs(q);
-                   
-                    let oldLists = [];
-        
-                    if(querySnapshot.empty === false)
-                    {
-                        querySnapshot.forEach((doc) => {
-                            oldLists = doc.data().lists;
-                        });
-                    }
-
-                    let newLists = oldLists.filter(item => item !== listText);
-
-                    if(getCookie("list") === listText)
-                    {
-                        deleteCookie("list");
-                    }
-
-                    await updateDoc(doc(db, "users", userid), { lists: newLists }).then(() => {
-                        setRandom(Math.random());//force redraw of the list of lists
-                    });
-                } 
-                catch (err) 
-                {
-                    console.log(err);
-                } 
-            };
-            fetchData();
-        }
         else if(event.target.id == "list-menu-add-cell" || event.target.id == "list-menu-add-icon" || event.target.id == "list-menu-add-path")
         {
+
+
+            //closest searches up the DOM tree
+            //querySelector searches down the DOM tree
+            //const listItem = event.target.closest(".list-menu-item-card");
+            //const listItemId = listItem.id;
+            //const listText = listItem.querySelector("#list-name").innerText;
+
+            let modal = document.getElementById("add-modal-wrapper");
+
+            document.getElementById("add-modal-text").value = "";
+            document.getElementById("add-modal-text-hidden").value = "";
+            document.getElementById("add-modal-id-hidden").value = "";
+
+
+            document.getElementById("add-modal-open").value = true;
+
+
+            modal.style.opacity = "1";
+            modal.style.visibility = "visible";
+
+
+            document.getElementById("add-modal-text").focus();
+
+
+
+            //console.log("opening modal");
+
+
+
+
+
+
+
+            /*
             let newList = prompt("Enter new list name:");
 
             if (newList == null) return;
@@ -134,7 +110,8 @@ export default function ListMenu(props)
 
                     //console.log(oldLists);
                     await updateDoc(doc(db, "users", userid), { lists: oldLists }).then(() => {
-                        setRandom(Math.random());//force redraw of the list of lists
+                        //setRandom(Math.random());//force redraw of the list of lists
+                        document.getElementById('lists-re-render-button').click();
                     });
                 } 
                 catch (err) 
@@ -143,6 +120,12 @@ export default function ListMenu(props)
                 } 
             };
             fetchData();
+            */
+
+
+
+
+
         }
         else if(event.target.id == "select-icon" || event.target.id == "select-path" || event.target.id == "list-select")
         {
@@ -154,6 +137,8 @@ export default function ListMenu(props)
             let currentList = getCookie("list");
 
             //loop through cards and uncheck them all
+
+            
             let cards = document.getElementsByClassName("list-menu-item-card");
             for (let i = 0; i < cards.length; i++)
             {
@@ -183,82 +168,12 @@ export default function ListMenu(props)
 
             //fake enter key stroke on task input to force a 
             //rerender on main page so it re querys tasks for new current list
-            const inputElement = document.getElementById('add-text-input');
+            //const inputElement = document.getElementById('add-text-input');
+            //const enterKeyEvent = new KeyboardEvent('keydown', {key: 'Enter',code: 'Enter',which: 13,keyCode: 13,bubbles: true,cancelable: true});
+            //inputElement.dispatchEvent(enterKeyEvent);
 
-            const enterKeyEvent = new KeyboardEvent('keydown', {
-              key: 'Enter',
-              code: 'Enter',
-              which: 13,
-              keyCode: 13,
-              bubbles: true,
-              cancelable: true
-            });
-            
-            inputElement.dispatchEvent(enterKeyEvent);
-        }
-        else if(event.target.id == "list-rename" || event.target.id == "rename-icon" || event.target.id == "path-rename")
-        {
-            //get the new name for the list
-            //closest searches up the DOM tree
-            //querySelector searches down the DOM tree
-            const listItem = event.target.closest(".list-menu-item-card");
-            const listText = listItem.querySelector("#list-name").innerText;
-
-            let newName = prompt("Rename list: ",listText);
-
-            if(newName == null) return;
-
-            if(newName === listText) return;
-
-            const fetchData = async () => 
-            {
-                try 
-                {
-                    const email = getCookie("email");
-
-                    if(email == null) return;
-
-                    const userid = getCookie("userid");
-    
-                    if(userid == null) return;
-
-                    const q = query(collection(db, "users"), where("email", "==", email));
-                    const querySnapshot = await getDocs(q);
-                    
-                    let oldLists = [];
-        
-                    if(querySnapshot.empty === false)
-                    {
-                        querySnapshot.forEach((doc) => {
-                            oldLists = doc.data().lists;
-                        });
-                    }
-
-                    //does a list with this name already exist?
-                    if(oldLists.includes(newName) == true)
-                    {
-                        return;
-                    }
-
-                    for (let i = 0; i < oldLists.length; i++) {
-                        if (oldLists[i] === listText) {
-                            oldLists[i] = newName; 
-                        }
-                      }
-                    
-                    //alert(oldLists);
-
-                    await updateDoc(doc(db, "users", userid), { lists: oldLists }).then(() => {
-                        setRandom(Math.random());//force redraw of the list of lists
-                    });
-
-                } 
-                catch (err) 
-                {
-                    console.log(err);
-                } 
-            };
-            fetchData();
+            // Select the button element
+            document.getElementById('re-render-button').click();
         }
         else if(event.target.id == "edit-cell" || event.target.id == "edit-icon" || event.target.id == "edit-path")
         {
@@ -275,10 +190,13 @@ export default function ListMenu(props)
             document.getElementById("list-modal-id-hidden").value = listItemId;
 
 
+            document.getElementById("list-modal-open").value = true;
 
 
             modal.style.opacity = "1";
             modal.style.visibility = "visible";
+
+            //console.log("opening modal");
         }
         else
         {
@@ -289,6 +207,7 @@ export default function ListMenu(props)
     function ListMenuList(props)
     {
         let blah = props.blah;
+        const userid = getCookie("userid");
 
         const [data, setData] = useState();
 
@@ -302,18 +221,16 @@ export default function ListMenu(props)
 
                     if(email == null) return;
 
-                    const q = query(collection(db, "users"), where("email", "==", email));
-                    const querySnapshot = await getDocs(q);
-                   
                     let buf = [];
                     let lists = [];
 
-                    if(querySnapshot.empty === false)
+                    await getDoc(doc(db, 'users', userid)).then((snap) => 
                     {
-                        querySnapshot.forEach((doc) => {
-                            lists = doc.data().lists;
-                        });
-                    }
+                        if (snap.exists()) 
+                        {
+                            lists = snap.data().lists;
+                        }
+                    });
 
                     if(lists == null) return;
 
@@ -325,12 +242,18 @@ export default function ListMenu(props)
 
                     for (let i = 0; i < lists.length; i++) 
                     {
-                        buf.push(<ListMenuItem title={lists[i]} id={i} key={i}/>);
+                        const q2 = query(collection(db, "tasks"), where("userid", "==", userid), where("list", "==", lists[i]));
+                        await getDocs(q2).then((snap) => 
+                        {
+                            buf.push(<ListMenuItem count={snap.size} title={lists[i]} id={i} key={i}/>);
+                        });
+                        //console.log(`List: ${lists[i]} Count: ${querySnapshot.size}`);
+                        
                     }
 
                     setData(buf);
                 } catch (err) {
-                    console.log(err);
+                    //console.log(err);
                 } 
             };
             fetchData();
@@ -366,16 +289,8 @@ export default function ListMenu(props)
                 <div id="list-name">
                     {props.title}
                 </div>
-                <div id="list-rename" onClick={handleClick} title="Rename">
-                    <svg id="rename-icon" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="grey" viewBox="0 0 16 16">
-                        <path id="path-rename" d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325"/>
-                    </svg>
-                </div>
-                <div id="list-delete" onClick={handleClick} title="Delete">
-                    <svg id="trash-icon" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="grey" viewBox="0 0 16 16">
-                        <path id="path-trash" d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
-                        <path id="path-trash" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
-                    </svg>
+                <div id="list-count">
+                    {props.count}
                 </div>
                 <div id="edit-cell" onClick={handleClick} title="Edit">
                     <svg id="edit-icon" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="grey" viewBox="0 0 16 16">
@@ -386,13 +301,34 @@ export default function ListMenu(props)
         );
     }
 
-    const [random, setRandom] = useState("");//keep at this scope
+    //const [random, setRandom] = useState("");//keep at this scope
     function ListMenu(props)
     {
+
+        const [state, setState] = useState(0);
+
+        const forceRerender = () => 
+        {
+            //console.log("refresh button pushed");
+            setState(state + 1);
+        };
+
+        useEffect(() => 
+        {
+            //console.log("list menu render");
+        });
+
+
         return (
+            <>
+            
+            <button style={{display:"none"}} onClick={forceRerender} id="lists-re-render-button">Force Re-render</button>
+
             <div id="list-menu-list-wrapper">
-                <ListMenuList blah={random} />
+                <ListMenuList blah={state} />
             </div>
+
+            </>
         );
     }
 
@@ -415,6 +351,7 @@ export default function ListMenu(props)
                 </div>
             </div>
             <ListMenu />
+            
         </div>
     );
 }

@@ -10,7 +10,7 @@ import StarCheck from '../assets/star-check.svg'
 export default function Front() 
 {
     const navigate = useNavigate();
-
+    //useEffect(() => { console.log("front render");});
     useEffect(() => {
 
         if(getCookie("accept-cookies") == null)
@@ -23,36 +23,36 @@ export default function Front()
             }
         }
 
-        window.addEventListener("beforeinstallprompt", function (event) 
+        var promptEvent; 
+
+        window.addEventListener('beforeinstallprompt', function (e) 
         {
-            event.preventDefault();
-    
-            var deferredPromp = event;
-    
-            const installButton = document.getElementById("installButton");
-            installButton.style.display = "block";
-    
-            installButton.addEventListener("click", function (event) 
-            {
-                deferredPromp.prompt();
-    
-                deferredPromp.userChoice.then((choiceResult) => 
-                {
-                    if (choiceResult.outcome === 'accepted') 
-                    {
-                        //console.log("User accepted PWA install");
-                    }
-                    else 
-                    {
-                        //console.log("User declined PWA install");
-                    }
-    
-                    deferredPromp = null;
-                    installButton.style.display = "none";
-                });
-            });
+            e.preventDefault();
+            promptEvent = e;
+            document.getElementById("installButton").style.display = "block";
+            listenToUserAction();
         });
 
+
+
+        function listenToUserAction() {
+            document.getElementById("installButton").addEventListener("click", presentAddToHome);
+        }
+
+
+        // present install prompt to user
+        function presentAddToHome() {
+            promptEvent.prompt();  // Wait for the user to respond to the prompt
+            promptEvent.userChoice
+            .then(choice => {
+                if (choice.outcome === 'accepted') {
+                    //console.log('User accepted');
+                } else {
+                    //console.log('User dismissed');
+                }
+                document.getElementById("installButton").style.display = "none";
+            })
+        }
     }, []);
 
     function login_register(event)

@@ -2,7 +2,7 @@
 import {useNavigate} from "react-router-dom";
 import './OptionsMenu.css'
 import {getCookie, setCookie, deleteCookie} from "../Tools";
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 
 export default function OptionsMenu(props)
 {
@@ -10,23 +10,7 @@ export default function OptionsMenu(props)
         showAll: getCookie("showAll"),
     });
 
-    useEffect(() => 
-    {
-        
-        //console.log("options render");
-
-
-    });
-
-
-    useEffect(() => 
-    {
-        
-        //console.log(options.showAll);
-
-
-    },[options]);
-
+    //useEffect(() => { console.log("options menu render");});
 
     const navigate = useNavigate();
 
@@ -44,13 +28,21 @@ export default function OptionsMenu(props)
 
             document.getElementById("body-wrapper").style.pointerEvents = "auto";
             document.getElementById("body").style.position = "inherit";
+
+            //console.log("close");
         }
         else if(event.target.id == "about-icon" || event.target.id == "about-cell" || event.target.id == "about-path")
         {
-            alert("about");
+            //the the data is in place, lets show it to them
+            let modal = document.getElementById("about-modal-wrapper");
+            document.getElementById("about-modal-open").value = true;
+            modal.style.opacity = "1";
+            modal.style.visibility = "visible";
+            //console.log("about");
         }
         else if(event.target.id == "select-icon" || event.target.id == "select-path" || event.target.id == "options-check")
         {
+            //console.log("select");
             if(options.showAll == null || options.showAll == "false")
             {
                 setCookie("showAll","true");
@@ -60,32 +52,18 @@ export default function OptionsMenu(props)
                 setCookie("showAll","false");
             }
 
-            //setOptions(getCookie("showAll"));
-
             setOptions({showAll: getCookie("showAll")});
 
-            //fake enter key stroke on task input to force a 
-            //rerender on main page so it re querys tasks for new current list
-            const inputElement = document.getElementById('add-text-input');
-
-            const enterKeyEvent = new KeyboardEvent('keydown', {
-              key: 'Enter',
-              code: 'Enter',
-              which: 13,
-              keyCode: 13,
-              bubbles: true,
-              cancelable: true
-            });
-            
-            inputElement.dispatchEvent(enterKeyEvent);
-
-
+            const button = document.getElementById('re-render-button');
+            button.click();
         }
         else if(event.target.id == "logout-button")
         {
             deleteCookie("email");
             deleteCookie("userid");
-            navigate('/',{ replace: true });
+            navigate('/home', { replace: true });
+            //console.log("logout");
+            location.reload();
         }
         else
         {

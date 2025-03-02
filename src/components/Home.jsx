@@ -5,9 +5,10 @@ import './Home.css'
 
 export default function Home() 
 {
+    //useEffect(() => { console.log("home render");});
     return (
         <>
-            {getCookie("email") != null ? <Body /> : <Front />}
+            {getCookie("userid") != null ? <Body /> : <Front />}
         </>
     );
 }

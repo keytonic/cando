@@ -204,3 +204,41 @@
 {
     fill: #EF6461 !important;
 }
+
+
+
+
+
+.trash-cell
+{
+    display: none;
+}
+
+#add-todo-wrapper
+{
+    border-radius: 4px;
+}
+
+.list-item-card:last-child,
+.list-menu-item-card:last-child,
+.options-menu-item-card:last-child,
+.option-row:last-child
+{
+    border-radius: 0 0 4px 4px;
+}
+
+.list-item-card:first-child,
+.list-menu-item-card:first-child,
+.options-menu-item-card:first-child,
+.option-row:first-child
+{
+    border-radius: 4px 4px 0 0;
+}
+
+.list-item-card:only-child,
+.list-menu-item-card:only-child,
+.options-menu-item-card:only-child,
+.option-row:only-child
+{
+    border-radius: 4px;
+}

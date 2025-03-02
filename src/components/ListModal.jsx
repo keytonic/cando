@@ -1,23 +1,17 @@
 import {db} from "../Firebase"
-import { collection, addDoc, getDocs, query, where, documentId, updateDoc, doc } from "firebase/firestore";
-import { useState } from "react";
-import {getCookie, setCookie, deleteCookie} from "../Tools";
-import './ListModal.css'
+import { collection, getDocs, getDoc,query, where, updateDoc, doc } from "firebase/firestore";
 
+import {getCookie, deleteCookie} from "../Tools";
+import './ListModal.css'
 
 export default function ListModal(props)
 {
-
-    const [state, setState] = useState(previousState => {
-        return { 
-            ...previousState, 
-            open: false 
-        }
-      });
-
+    //useEffect(() => { console.log("list modal render");});
 
     function modalClose()
     {
+        //console.log("close " + Math.random());
+
         let modal = document.getElementById("list-modal-wrapper");
 
         modal.style.opacity = "0";
@@ -30,6 +24,11 @@ export default function ListModal(props)
 
     function modalSave()
     {
+        if(document.getElementById("list-modal-open").value == "false") return;
+        document.getElementById("list-modal-open").value = "false";
+
+        //console.log("save " + Math.random());
+
         const oldName = document.getElementById("list-modal-text-hidden").value;
         const newName = document.getElementById("list-modal-text").value;
         const listId  = document.getElementById("list-modal-id-hidden").value;
@@ -89,12 +88,14 @@ export default function ListModal(props)
                 }
                 await updateDoc(doc(db, "users", userid), { lists: oldLists }).then(() => {
                     document.getElementById(listId).querySelector("#list-name").innerText = newName;
+                    //update the new current list name on main page
+                    document.getElementById("span-title-id").innerText = newName;
                 });
 
             } 
             catch (err) 
             {
-                console.log(err);
+                //console.log(err);
             } 
         };
         fetchData();
@@ -103,6 +104,11 @@ export default function ListModal(props)
 
     function modalDelete()
     {
+        if(document.getElementById("list-modal-open").value == "false") return;
+        document.getElementById("list-modal-open").value = "false";
+
+        //console.log("delete " + Math.random());
+
         const listName = document.getElementById("list-modal-text-hidden").value;
         const listId  = document.getElementById("list-modal-id-hidden").value;
 
@@ -126,33 +132,41 @@ export default function ListModal(props)
                     return;
                 }
 
-                const q = query(collection(db, "users"), where("email", "==", email));
-                const querySnapshot = await getDocs(q);
-                
+
                 let oldLists = [];
-    
-                if(querySnapshot.empty === false)
+                let newLists = [];
+
+                await getDoc(doc(db, 'users', userid)).then((snap) => 
                 {
-                    querySnapshot.forEach((doc) => {
-                        oldLists = doc.data().lists;
-                    });
+                    if (snap.exists()) 
+                    {
+                        oldLists = snap.data().lists;
+                    }
+                });
+
+                //if the user had any lists to begin with
+                if (oldLists.length != 0)
+                {
+                    //remove list from array
+                    newLists = oldLists.filter(item => item !== listName);
                 }
 
-                //remove list from array
-                let newLists = oldLists.filter(item => item !== listName);
-
+                //if the list we are deleting it the current list then remove the cookie
                 if(getCookie("list") === listName)
                 {
                     deleteCookie("list");
                 }
 
-                await updateDoc(doc(db, "users", userid), { lists: newLists }).then(() => {
+                //remove list from the db then from the ui
+                await updateDoc(doc(db, "users", userid), { lists: newLists }).then(() => 
+                {
+                    //alert(newLists);
                     document.getElementById(listId).remove();
                 });
             } 
             catch (err) 
             {
-                console.log(err);
+                //console.log(err);
             } 
         };
         fetchData();
@@ -174,6 +188,10 @@ export default function ListModal(props)
         {
             modalDelete()
         }
+        else if(event.target.id == "list-modal-wrapper")
+        {
+            modalClose();
+        }
     }
 
 
@@ -181,7 +199,7 @@ export default function ListModal(props)
     return (<>
     
     
-        <div className="modal-wrapper" id="list-modal-wrapper">
+        <div className="modal-wrapper" id="list-modal-wrapper" onClick={handleClick}>
             <div className="modal-window">
                 <div className="modal-header">
                     <div className="modal-nav"></div>
@@ -194,15 +212,17 @@ export default function ListModal(props)
                 </div>
                 <div className="modal-body">
                     <div className="option-row">
-                        <span id="list-modal-title">Title:</span>
-                        <input className="modal-text" id="list-modal-text" type="text" />
+                        <span  id="list-modal-title">Title:</span>
+                        <input id="list-modal-text" className="modal-text"  type="text" />
                         <input id="list-modal-text-hidden" type="hidden" value=""/>
-                        <input id="list-modal-id-hidden" type="hidden" value=""/>
+                        
                     </div>
                     
                     
                 </div>
                 <div className="modal-footer">
+                    <input id="list-modal-id-hidden" type="hidden" value=""/>
+                    <input id="list-modal-open" type="hidden" value="false"/>
                     <button type="button" id="modal-delete-button" onClick={handleClick}>Delete</button>
                     <button type="button" id="modal-save-button" onClick={handleClick}>Save</button>
                 </div>

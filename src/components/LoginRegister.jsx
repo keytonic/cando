@@ -114,31 +114,40 @@ export function Register()
     }
 
     return ( 
-        
-        <div id="register-wrapper">
-            <div id="register-wrapper-inside">
-                <Link to="/">
-                    <div id="big-logo-with-text">
-                        <img id="logo_big_front" src={StarCheck} alt="Logo" />
-                        <img id="canndo-text-large" src={CandoTextLarge} />
-                    </div>
-                </Link>
-                <div className='App'>
-                    <header className='App-header'>
-                        <form id="form_register" name="form_register" onSubmit={handleForm}>
-                            <label htmlFor="form-username" className="opacity0" id="form-username-label">Username:</label>
-                            <input id="form-username"  name="username"  ref={usernameRef} type='text' placeholder-slug="Username" placeholder='Username' required autoComplete={String(Math.random()).slice(2)} onClick={handleClick} onBlur={handleBlur} />  
-                            <label htmlFor="form-email" className="opacity0" id="form-email-label">Email:</label>
-                            <input id="form-email"  name="email"  ref={emailRef} type='email' placeholder-slug="Email" placeholder='Email' required autoComplete={String(Math.random()).slice(2)} onClick={handleClick} onBlur={handleBlur} />
-                            <label htmlFor="form-password" className="opacity0" id="form-password-label">Password:</label>
-                            <input id="form-password" name="password" ref={passwordRef} type='password' placeholder-slug="Password" placeholder='Password' required autoComplete={String(Math.random()).slice(2)}  onClick={handleClick} onBlur={handleBlur} />
-                            <span id="alert_register"></span>
-                            <button id="register_submit" type="submit">Register</button>
-                        </form>
-                    </header>
+        <>
+            <div id="login-register-top-bar">
+                <div class="top-bar-cell-left">
+                    <Link to="/"><img id="star-check" src={StarCheck} /></Link>
+                </div>
+                <div class="top-bar-cell-right">
+                    <Link to="/login"><span>Login</span></Link>
                 </div>
             </div>
-        </div>
+            <div id="register-wrapper">
+                <div id="register-wrapper-inside">
+                    <Link to="/">
+                        <div id="big-logo-with-text">
+                            <img id="logo_big_front" src={StarCheck} alt="Logo" />
+                            <img id="canndo-text-large" src={CandoTextLarge} />
+                        </div>
+                    </Link>
+                    <div className='App'>
+                        <header className='App-header'>
+                            <form id="form_register" name="form_register" onSubmit={handleForm}>
+                                <label htmlFor="form-username" className="opacity0" id="form-username-label">Username:</label>
+                                <input id="form-username"  name="username"  ref={usernameRef} type='text' placeholder-slug="Username" placeholder='Username' required autoComplete={String(Math.random()).slice(2)} onClick={handleClick} onBlur={handleBlur} />  
+                                <label htmlFor="form-email" className="opacity0" id="form-email-label">Email:</label>
+                                <input id="form-email"  name="email"  ref={emailRef} type='email' placeholder-slug="Email" placeholder='Email' required autoComplete={String(Math.random()).slice(2)} onClick={handleClick} onBlur={handleBlur} />
+                                <label htmlFor="form-password" className="opacity0" id="form-password-label">Password:</label>
+                                <input id="form-password" name="password" ref={passwordRef} type='password' placeholder-slug="Password" placeholder='Password' required autoComplete={String(Math.random()).slice(2)}  onClick={handleClick} onBlur={handleBlur} />
+                                <span id="alert_register"></span>
+                                <button id="register_submit" type="submit">Register</button>
+                            </form>
+                        </header>
+                    </div>
+                </div>
+            </div>
+        </>
     );
 }
 
@@ -217,28 +226,39 @@ export function Login()
     }
 
     return ( 
-        <div id="login-wrapper">
-            <div id="login-wrapper-inside">
-                <Link to="/">
-                    <div id="big-logo-with-text">
-                        <img id="logo_big_front" src={StarCheck} alt="Logo" />
-                        <img id="canndo-text-large" src={CandoTextLarge} />
-                    </div>
-                </Link>
-                <div className='App'>
-                    <header className='App-header'>
-                        <form id="form_login" name="form_login" onSubmit={handleForm}>
-                            <label htmlFor="form-email" className="opacity0" id="form-email-label">Email:</label>
-                            <input id="form-email"  name="email"  ref={emailRef} type='email' placeholder-slug="Email" placeholder='Email' required autoComplete={String(Math.random()).slice(2)} onClick={handleClick} onBlur={handleBlur} />
-                            <label htmlFor="form-password" className="opacity0" id="form-password-label">Password:</label>
-                            <input id="form-password" name="password" ref={passwordRef} type='password' placeholder-slug="Password" placeholder='Password' required autoComplete={String(Math.random()).slice(2)}  onClick={handleClick} onBlur={handleBlur} />
-                            <span id="alert_login"></span>
-                            <button id="login_submit" type="submit">Login </button>
-                        </form>
-                    </header>
+
+        <>
+            <div id="login-register-top-bar">
+                <div class="top-bar-cell-left">
+                    <Link to="/"><img id="star-check" src={StarCheck} /></Link>
+                </div>
+                <div class="top-bar-cell-right">
+                    <Link to="/register"><span>Create an account</span></Link>
                 </div>
             </div>
-        </div>
+            <div id="login-wrapper">
+                <div id="login-wrapper-inside">
+                    <Link to="/">
+                        <div id="big-logo-with-text">
+                            <img id="logo_big_front" src={StarCheck} alt="Logo" />
+                            <img id="canndo-text-large" src={CandoTextLarge} />
+                        </div>
+                    </Link>
+                    <div className='App'>
+                        <header className='App-header'>
+                            <form id="form_login" name="form_login" onSubmit={handleForm}>
+                                <label htmlFor="form-email" className="opacity0" id="form-email-label">Email:</label>
+                                <input id="form-email"  name="email"  ref={emailRef} type='email' placeholder-slug="Email" placeholder='Email' required autoComplete={String(Math.random()).slice(2)} onClick={handleClick} onBlur={handleBlur} />
+                                <label htmlFor="form-password" className="opacity0" id="form-password-label">Password:</label>
+                                <input id="form-password" name="password" ref={passwordRef} type='password' placeholder-slug="Password" placeholder='Password' required autoComplete={String(Math.random()).slice(2)}  onClick={handleClick} onBlur={handleBlur} />
+                                <span id="alert_login"></span>
+                                <button id="login_submit" type="submit">Login </button>
+                            </form>
+                        </header>
+                    </div>
+                </div>
+            </div>
+        </>
     );
 }
 

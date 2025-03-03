@@ -87,7 +87,8 @@
     width: calc(100% - 30px);
     display: flex;
     flex-direction: column;
-    overflow: hidden;
+    overflow: scroll;
+    scrollbar-width: none;
 }
 
 .list-menu-item-card

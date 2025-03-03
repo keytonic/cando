@@ -14,14 +14,20 @@ let coreAssets =
     './assets/images/narrow.png',
     './assets/images/wide.png',
     'favicon.ico',
-    'manifest.json'
+    'manifest.json',
+    'sw.js',
+    'index.html'
 ];
+
+const appName = "cando";
+
+
 
 // On install, cache core assets
 self.addEventListener('install', function (event) {
 
 	// Cache core assets
-	event.waitUntil(caches.open('app').then(function (cache) {
+	event.waitUntil(caches.open(appName).then(function (cache) {
 		for (let asset of coreAssets) {
 			cache.add(new Request(asset));
 		}
@@ -48,7 +54,7 @@ self.addEventListener('fetch', function (event) {
 
 				// Create a copy of the response and save it to the cache
 				let copy = response.clone();
-				event.waitUntil(caches.open('app').then(function (cache) {
+				event.waitUntil(caches.open(appName).then(function (cache) {
 					return cache.put(request, copy);
 				}));
 
@@ -91,7 +97,7 @@ self.addEventListener('fetch', function (event) {
 
 					// Save a copy of it in cache
 					let copy = response.clone();
-					event.waitUntil(caches.open('app').then(function (cache) {
+					event.waitUntil(caches.open(appName).then(function (cache) {
 						return cache.put(request, copy);
 					}));
 

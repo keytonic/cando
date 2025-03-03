@@ -149,20 +149,20 @@ export default function ListModal(props)
                 {
                     //remove list from array
                     newLists = oldLists.filter(item => item !== listName);
+
+                    //remove list from the db then from the ui
+                    await updateDoc(doc(db, "users", userid), { lists: newLists }).then(() => 
+                    {
+                        //alert(newLists);
+                        document.getElementById(listId).remove();
+                    });
                 }
 
-                //if the list we are deleting it the current list then remove the cookie
+                //if the list we are deleting is the current list then remove the cookie
                 if(getCookie("list") === listName)
                 {
                     deleteCookie("list");
                 }
-
-                //remove list from the db then from the ui
-                await updateDoc(doc(db, "users", userid), { lists: newLists }).then(() => 
-                {
-                    //alert(newLists);
-                    document.getElementById(listId).remove();
-                });
             } 
             catch (err) 
             {

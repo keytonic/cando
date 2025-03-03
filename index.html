@@ -5,6 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="manifest" href="/manifest.json" />
     <link id="favicon" rel="icon" href="/assets/images/favicon-32x32.png" />
+
+    <script>
+        if (navigator && navigator.serviceWorker) {
+        navigator.serviceWorker.register('sw.js');
+        }
+    </script>
+
     <title>Cando</title>
   </head>
   <body id="body">

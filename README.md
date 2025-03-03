@@ -6,10 +6,10 @@ A "todo" style Progressive Web App made with following technologies:
 - Firestore
 
 
+<!--
+
 
 ### todo:
-
-{::comment}
  - add last active date/time field to db
  - add bubbles with details of features for first use tour and add field in db for accomplished 
  - forgot password retrieval
@@ -23,5 +23,7 @@ A "todo" style Progressive Web App made with following technologies:
  - add number count numbers in parenthesis next to list names in list menu
  - give ability to delete your own account
 
- {:/comment}
+ 
+
+-->
 

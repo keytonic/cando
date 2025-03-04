@@ -74,7 +74,7 @@ self.addEventListener('fetch', function (event) {
 
 	// CSS & JavaScript
 	// Offline-first
-	if (request.headers.get('Accept').includes('text/css') || request.headers.get('Accept').includes('text/javascript')) {
+	else if (request.headers.get('Accept').includes('text/css') || request.headers.get('Accept').includes('text/javascript')) {
 		event.respondWith(
 			caches.match(request).then(function (response) {
 				return response || fetch(request).then(function (response) {
@@ -90,7 +90,7 @@ self.addEventListener('fetch', function (event) {
 
 	// Images
 	// Offline-first
-	if (request.headers.get('Accept').includes('image')) {
+	else if (request.headers.get('Accept').includes('image')) {
 		event.respondWith(
 			caches.match(request).then(function (response) {
 				return response || fetch(request).then(function (response) {
